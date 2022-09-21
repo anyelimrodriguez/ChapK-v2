@@ -93,7 +93,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   children: <Widget>[
                     SizedBox(height: 150.0,width: 180.0),
                     Text(
-                      "Login In",
+                      "Get Started",
                       style: TextStyle(
                         color: Color(0xFFC3B1E1),
                         fontSize: 45.0,
@@ -103,7 +103,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     SizedBox(height: 150.0,width: 180.0),
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/SignUp');
+                },
                 
                 style: TextButton.styleFrom(
                     elevation: 0,
@@ -176,7 +178,9 @@ class LoginInButton extends StatelessWidget {
                   SizedBox(height: 50.0,width: 20.0),
                 ],
               ),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, '/Login');
+              },
               style: TextButton.styleFrom(
                   elevation: 0,
                   backgroundColor: Color(0xFFFFBA01),  //0xFFCCCCCC
