@@ -12,24 +12,114 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFC3B1E1),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Logo(),
-          SizedBox(width: 20.0),
-          LoginInButton(),
-            
+      body: Column(                                             // the main colum of the whole Welcome Page -----------------------
+        children: [
+          Row(                                                  // the first with the 2 buttons ----------------------------------  
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Logo(),
+              SizedBox(height: 100.0,width: 100.0),
+              SizedBox(height: 100.0,width: 100.0),
+              LoginInButton(),
+                
+            ],
+          ),
+          SizedBox(height: 25.0),
+          Row (                                                                         // We are Chap-K row-----------------------------------
+            mainAxisAlignment: MainAxisAlignment.spaceAround,                     
+            children: [
+              Text(
+                "Hi, we're CHAP-K.",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 55.0, 
+                ),
+
+              ),
+              SizedBox(height: 10.0, width: 20.0),
+              SizedBox(height: 10.0, width: 20.0),
+            ],
+          ),
+          SizedBox(height: 30.0),
+          Row (                                                                   // We are Post and Connect row-----------------------------------
+            mainAxisAlignment: MainAxisAlignment.center,                     
+            children: [
+              Text(
+                "Post and Connect with People from many Places",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 35.0, 
+                ),
+
+              ),
+              SizedBox(height: 10.0, width: 20.0),
+              
+            ],
+          ),
+          SizedBox(height: 25.0),
+          Row (                                                                   // Write your Chapter Today K?-----------------------------------
+            mainAxisAlignment: MainAxisAlignment.center,                     
+            children: [
+              Text(
+                "Write your chapter today, K ?",
+                style: TextStyle(
+                  color: Colors.white,
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 25.0, 
+                ),
+
+              ),
+              SizedBox(height: 10.0, width: 20.0),
+              SizedBox(height: 10.0, width: 20.0),
+            ],
+          ),
+          SizedBox(height: 50.0),
+          Row(                                                                     // Adding the Image and getstarted button here 
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget> [
+              SizedBox(height: 100.0,width: 200.0),
+              Image.asset(
+                '../../imgs/welcomepage.png',
+                fit: BoxFit.contain,
+                height: 350,
+                width: 350,
+              ),
+              SizedBox(height: 100.0, width: 200.0),
+              TextButton(                                                                         // Get Started Button on right of image  
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    SizedBox(height: 150.0,width: 180.0),
+                    Text(
+                      "Login In",
+                      style: TextStyle(
+                        color: Color(0xFFC3B1E1),
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 150.0,width: 180.0),
+                  ],
+                ),
+                onPressed: () {},
+                
+                style: TextButton.styleFrom(
+                    elevation: 0,
+                    backgroundColor: Colors.white, 
+                    
+                ),
+                
+              ),
+            ],
+          ),
+          
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
 
 // The Logo Widget
 class Logo extends StatelessWidget {
@@ -44,7 +134,7 @@ class Logo extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  SizedBox(height: 30.0,width: 10.0),
+                  SizedBox(height: 50.0,width: 20.0),
                   Text(
                     "Logo Here",
                     style: TextStyle(
@@ -53,7 +143,7 @@ class Logo extends StatelessWidget {
                       fontSize: 20.0,
                     ),
                   ),
-                  SizedBox(height: 30.0,width: 10.0),
+                  SizedBox(height: 50.0,width: 20.0),
 
                 ],
               ),
@@ -74,7 +164,7 @@ class LoginInButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                   SizedBox(height: 30.0,width: 10.0),
+                   SizedBox(height: 50.0,width: 20.0),
                   Text(
                     "Login In",
                     style: TextStyle(
@@ -83,13 +173,13 @@ class LoginInButton extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 30.0,width: 10.0),
+                  SizedBox(height: 50.0,width: 20.0),
                 ],
               ),
               onPressed: () {},
               style: TextButton.styleFrom(
                   elevation: 0,
-                  backgroundColor: Color(0xFFCCCCCC),
+                  backgroundColor: Color(0xFFFFBA01),  //0xFFCCCCCC
               ),
           );
   }
