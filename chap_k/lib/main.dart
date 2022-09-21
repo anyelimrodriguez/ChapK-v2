@@ -1,6 +1,10 @@
 // Importing the designs and packages needed for the project
 import "package:flutter/material.dart";
 import 'package:chap_k/pages/WelcomePage.dart';
+import 'package:chap_k/pages/Login.dart';
+import 'package:chap_k/pages/SignUp.dart';
+import 'package:chap_k/pages/Home.dart';
+import 'package:chap_k/pages/Write.dart';
 
 // Main is the point of execution ( have runApp() function in the main)
 void main() {
@@ -14,7 +18,15 @@ class Chap_K extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: WelcomePage(),
+      initialRoute: '/WelcomePage',
+      routes: {
+        '/':(context) => WelcomePage(),
+        '/SignUp':(context) => SignUp(),
+        '/Login':(context) => Login(),
+        '/Home':(context) => Home(),
+        '/Write':(context) => Write(),
+
+      },
     );
   }
 }
