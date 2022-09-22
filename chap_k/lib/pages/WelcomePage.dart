@@ -1,3 +1,4 @@
+// The Welcome Page I need to make it more responsive 
 import 'package:flutter/material.dart';
 
 class WelcomePage extends StatefulWidget {
