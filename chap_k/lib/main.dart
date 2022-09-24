@@ -18,14 +18,13 @@ class Chap_K extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/WelcomePage',
+      initialRoute: '/Welcome',
       routes: {
-        '/':(context) => WelcomePage(),
-        '/SignUp':(context) => SignUp(),
-        '/Login':(context) => Login(),
-        '/Home':(context) => Home(),
-        '/Write':(context) => Write(),
-
+        '/': (context) => WelcomePage(),
+        '/SignUp': (context) => SignUp(),
+        '/Login': (context) => Login(),
+        '/Home': (context) => Home(),
+        '/Write': (context) => Write(),
       },
     );
   }
