@@ -18,7 +18,7 @@ class Chap_K extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/WelcomePage',
+      initialRoute: '/Write',
       routes: {
         '/':(context) => WelcomePage(),
         '/SignUp':(context) => SignUp(),
