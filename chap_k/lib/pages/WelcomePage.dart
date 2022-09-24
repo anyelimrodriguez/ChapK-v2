@@ -88,32 +88,32 @@ class _WelcomePageState extends State<WelcomePage> {
                 width: 350,
               ),
               SizedBox(height: 100.0, width: 200.0),
-              TextButton(                                                                         // Get Started Button on right of image  
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    SizedBox(height: 150.0,width: 180.0),
-                    Text(
-                      "Get Started",
-                      style: TextStyle(
-                        color: Color(0xFFC3B1E1),
-                        fontSize: 45.0,
-                        fontWeight: FontWeight.bold,
-                      ),
+              SizedBox(
+                height: 200.0,
+                width: 500.0,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/SignUp');
+                  },
+                  style: ButtonStyle(
+                    elevation: MaterialStateProperty.all<double>(0),
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+              
+                        ),  
+                    ) 
+                  ), 
+                  child: Text(
+                    "Get Started",
+                    style: TextStyle(
+                      color: Color(0xFFC3B1E1),
+                      fontSize: 45.0,
+                      fontWeight: FontWeight.bold,
                     ),
-                    SizedBox(height: 150.0,width: 180.0),
-                  ],
+                  ),
                 ),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/SignUp');
-                },
-                
-                style: TextButton.styleFrom(
-                    elevation: 0,
-                    backgroundColor: Colors.white, 
-                    
-                ),
-                
               ),
             ],
           ),
