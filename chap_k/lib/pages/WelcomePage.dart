@@ -213,7 +213,7 @@ class GetStartedButton extends StatelessWidget {
             height: MediaQuery.of(context).size.height/10,
             child: FittedBox(
               child: Text(
-                "Login In",
+                "Get Started",
                 style: TextStyle(
                   color: Color(0xFFC3B1E1),
                   fontSize: 25,
