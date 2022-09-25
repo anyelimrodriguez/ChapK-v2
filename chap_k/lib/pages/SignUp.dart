@@ -124,32 +124,49 @@ class _SignUpFormState extends State<SignUpForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          /*Text('Email Address',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              letterSpacing: 0.5, 
-            )
-          ),*/
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _emailTextController,
-              decoration: const InputDecoration(hintText:'Enter your email address'),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText:'Enter your email address',
+                hintStyle: TextStyle(
+                  color: Colors.grey[350]
+                ),
+                labelText: 'Email',
+                labelStyle: TextStyle(
+                  color: Color(0xFFC3B1E1),
+                ),
+                border: InputBorder.none,
+              ),
+              validator:(value) { 
+                if(value==null || !value.contains('@')) {
+                  return 'Please enter a valid email';
+                }
+                return null;
+              }
             ),
           ),
-          /*Text('Password',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              letterSpacing: 0.5, 
-            )
-          ),*/
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextFormField(
               controller: _passwordTextController,
-              decoration: const InputDecoration(hintText:'Create your password'),
+              decoration: InputDecoration(
+                hintText:'Create your password',
+                hintStyle: TextStyle(
+                  color: Colors.grey[350]
+                ),
+                labelText: 'Password',
+                labelStyle: TextStyle(
+                  color: Color(0xFFC3B1E1),
+                ),
+                filled: true,
+                fillColor: Colors.white,
+                border: InputBorder.none,
+              ),
+              
             ),
           ),
           SizedBox(
@@ -184,8 +201,8 @@ class _SignUpFormState extends State<SignUpForm> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('OR')
+            children: [ 
+              Text('OR', style: TextStyle(color: Color(0xFF9A9A9A)))
             ],
           ),
           SizedBox(
@@ -200,7 +217,6 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
             onPressed: (){},
             style: ButtonStyle(
-
               foregroundColor: MaterialStateProperty.resolveWith(
                   (Set<MaterialState> states) {
                 return states.contains(MaterialState.disabled)
@@ -211,7 +227,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   (Set<MaterialState> states) {
                 return states.contains(MaterialState.disabled)
                     ? null
-                    : Colors.blue;
+                    : Color(0xFFE1CEB1);
               }),
             ),
           ),
