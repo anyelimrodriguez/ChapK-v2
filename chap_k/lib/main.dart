@@ -20,12 +20,11 @@ class Chap_K extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/':(context) => WelcomePage(),
-        '/SignUp':(context) => SignUp(),
-        '/Login':(context) => Login(),
-        '/Home':(context) => Home(),
-        '/Write':(context) => Write(),
-
+        '/': (context) => WelcomePage(),
+        '/SignUp': (context) => SignUp(),
+        '/Login': (context) => Login(),
+        '/Home': (context) => Home(),
+        '/Write': (context) => Write(),
       },
     );
   }
