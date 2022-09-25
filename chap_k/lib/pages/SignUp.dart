@@ -10,90 +10,117 @@ class SignUp extends StatefulWidget {
 class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
+
+    //double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    void showLogInPage() {
+      Navigator.of(context).pushNamed('/Login');
+    }
+    
     return Scaffold(
-      backgroundColor: Color(0xFFC3B1E1),
-      body: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 50, 0, 20),
-                  child: Text('Create a new account.',
-                    style: TextStyle(
-                      color: Colors.white,
-                      //fontFamily: 'Inter',
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                    )
-                  ),
-                ),
-                Row(
+      backgroundColor: const Color(0xFFC3B1E1),
+      body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints viewportConstraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: viewportConstraints.maxWidth,
+                //minHeight: viewportConstraints.maxHeight,
+              ),
+              child: IntrinsicWidth(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Already a member?',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
+                    Expanded(
+                      flex: 3,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, screenHeight/10, 0, screenHeight/20), //50 20
+                            child: const Text('Create a new account.',
+                              style: TextStyle(
+                                color: Colors.white,
+                                //fontFamily: 'Inter',
+                                fontSize: 48,
+                                fontWeight: FontWeight.bold,
+                              )
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.fromLTRB(0, 0, 0, screenHeight/20), //0 0 0 15
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const Text('Already a member?',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24,
+                                  )
+                                ),
+                                TextButton(
+                                  onPressed: showLogInPage,
+                                  child: const Text('Sign In',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    )
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 400,
+                            child: Card(
+                              color: Color(0xFFD9D9D9),
+                              child: SignUpForm(),
+                            ),
+                          )
+                        ],
                       )
                     ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Text('Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      )
-                    ),
-                  ],
-                ),
-                SizedBox(height: 15),
-                SizedBox(
-                  width: 400,
-                  child: Card(
-                    child: const SignUpForm(),
-                    color: Color(0xFFD9D9D9),
-                  ),
-                )
-              ],
-            )
-            
-          ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: Color(0xFFC3B1E1),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('CHAP-K',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
+                    Expanded(
+                      flex: 2,
+                      child: Container(
+                        color: const Color(0xFFC3B1E1),
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(10, 50, 20, 0),
+                          child: Column(
+                            //mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text('CHAP-K',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 48,
+                                  fontWeight: FontWeight.bold,
+                                )
+                              ),
+                              Image.asset(
+                                '../../imgs/SignUpPageReading.png',
+                                fit: BoxFit.contain,
+                                
+                              ),
+                              const Text('Connect with stories from around the world. ',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                )
+                              ),
+                            ],
+                          ),
+                        )
+                      ),
                     )
-                  ),
-                  Image.asset(
-                    '../../imgs/SignUpPageReading.png',
-                    fit: BoxFit.contain,
-                    height: 350,
-                    width: 350,
-                  ),
-                  Text('Connect with stories from around the world. ',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    )
-                  ),
-                ],
-              )
+                  ],),
+              ),
             ),
-          )
-        ],)
+          );
+        }
+      )
     );
   }
 }
@@ -116,9 +143,10 @@ class _SignUpFormState extends State<SignUpForm> {
   void _showHomePage() {
     Navigator.of(context).pushNamed('/Home');
   }
-
+  
   @override
   Widget build(BuildContext context) {
+    
     return Form(
       key: _formKey,
       child: Column(
@@ -136,7 +164,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   color: Colors.grey[350]
                 ),
                 labelText: 'Email',
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   color: Color(0xFFC3B1E1),
                 ),
                 border: InputBorder.none,
@@ -150,7 +178,7 @@ class _SignUpFormState extends State<SignUpForm> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
             child: TextFormField(
               controller: _passwordTextController,
               decoration: InputDecoration(
@@ -159,80 +187,87 @@ class _SignUpFormState extends State<SignUpForm> {
                   color: Colors.grey[350]
                 ),
                 labelText: 'Password',
-                labelStyle: TextStyle(
+                labelStyle: const TextStyle(
                   color: Color(0xFFC3B1E1),
                 ),
                 filled: true,
                 fillColor: Colors.white,
                 border: InputBorder.none,
               ),
-              
             ),
           ),
-          SizedBox(
-            height: 15
-          ),
-          TextButton(
-            child: Text(
-              'Create Account',
-              style:TextStyle(
-                fontWeight: FontWeight.bold,
-              )
-            ),
-            onPressed: _showHomePage,
-            style: ButtonStyle(
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
+            child: SizedBox(
+              height: 50, //screenHeight/15,
+              width: 300, //screenWidth/4,
+              child: TextButton(
+                onPressed: _showHomePage,
+                style: ButtonStyle(
 
-              foregroundColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                return states.contains(MaterialState.disabled)
-                    ? null
-                    : Colors.white;
-              }),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                return states.contains(MaterialState.disabled)
-                    ? null
-                    : Color(0xFFE1B1B1);
-              }),
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (Set<MaterialState> states) {
+                    return states.contains(MaterialState.disabled)
+                        ? null
+                        : Colors.white;
+                  }),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (Set<MaterialState> states) {
+                    return states.contains(MaterialState.disabled)
+                        ? null
+                        : Color(0xFFE1B1B1);
+                  }),
+                ),
+                child: const Text(
+                  'Create Account',
+                  style:TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  )
+                ),
+              ),
             ),
           ),
-          SizedBox(
-            height: 15,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [ 
-              Text('OR', style: TextStyle(color: Color(0xFF9A9A9A)))
-            ],
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          TextButton(
-            child: Text(
-              'Connect with Google',
-              style:TextStyle(
-                fontWeight: FontWeight.bold,
-              )
-            ),
-            onPressed: (){},
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                return states.contains(MaterialState.disabled)
-                    ? null
-                    : Colors.white;
-              }),
-              backgroundColor: MaterialStateProperty.resolveWith(
-                  (Set<MaterialState> states) {
-                return states.contains(MaterialState.disabled)
-                    ? null
-                    : Color(0xFFE1CEB1);
-              }),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [ 
+                Text('OR', style: TextStyle(color: Color(0xFF9A9A9A)))
+              ],
             ),
           ),
-          SizedBox(
-            height: 20,
+          
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 20),
+            child: SizedBox(
+              height: 50,
+              width: 300,
+              child: TextButton(
+                onPressed: (){},
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.resolveWith(
+                      (Set<MaterialState> states) {
+                    return states.contains(MaterialState.disabled)
+                        ? null
+                        : Colors.white;
+                  }),
+                  backgroundColor: MaterialStateProperty.resolveWith(
+                      (Set<MaterialState> states) {
+                    return states.contains(MaterialState.disabled)
+                        ? null
+                        : Color(0xFFE1CEB1);
+                  }),
+                ),
+                child: const Text(
+                  'Connect with Google',
+                  style:TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  )
+                ),
+              ),
+            ),
           ),
         ],
       ),
