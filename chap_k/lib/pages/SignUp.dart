@@ -86,7 +86,7 @@ class _SignUpState extends State<SignUp> {
                       child: Container(
                         color: const Color(0xFFC3B1E1),
                         child: Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 50, 20, 0),
+                          padding: const EdgeInsets.fromLTRB(10, 50, 15, 0),
                           child: Column(
                             //mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +101,6 @@ class _SignUpState extends State<SignUp> {
                               Image.asset(
                                 '../../imgs/SignUpPageReading.png',
                                 fit: BoxFit.contain,
-                                
                               ),
                               const Text('Connect with stories from around the world. ',
                                 style: TextStyle(
@@ -169,8 +168,8 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
                 border: InputBorder.none,
               ),
-              validator:(value) { 
-                if(value==null || !value.contains('@')) {
+              validator:(email) { 
+                if(email==null || !email.contains('@')) {
                   return 'Please enter a valid email';
                 }
                 return null;
@@ -180,6 +179,7 @@ class _SignUpFormState extends State<SignUpForm> {
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
             child: TextFormField(
+              obscureText: true,
               controller: _passwordTextController,
               decoration: InputDecoration(
                 hintText:'Create your password',
@@ -194,6 +194,12 @@ class _SignUpFormState extends State<SignUpForm> {
                 fillColor: Colors.white,
                 border: InputBorder.none,
               ),
+              validator:(password) { 
+                if(password==null || password.length<6) {
+                  return 'Please set a password longer than six characters';
+                }
+                return null;
+              }
             ),
           ),
           Padding(
@@ -202,9 +208,13 @@ class _SignUpFormState extends State<SignUpForm> {
               height: 50, //screenHeight/15,
               width: 300, //screenWidth/4,
               child: TextButton(
-                onPressed: _showHomePage,
+                onPressed: (){
+                  //If email and password are both valid, continue, if not, display error
+                  if(_formKey.currentState!.validate()){
+                    _showHomePage();
+                  }
+                },
                 style: ButtonStyle(
-
                   foregroundColor: MaterialStateProperty.resolveWith(
                       (Set<MaterialState> states) {
                     return states.contains(MaterialState.disabled)
@@ -215,7 +225,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       (Set<MaterialState> states) {
                     return states.contains(MaterialState.disabled)
                         ? null
-                        : Color(0xFFE1B1B1);
+                        : const Color(0xFFE1B1B1);
                   }),
                 ),
                 child: const Text(
@@ -237,7 +247,6 @@ class _SignUpFormState extends State<SignUpForm> {
               ],
             ),
           ),
-          
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 20),
             child: SizedBox(
@@ -256,7 +265,7 @@ class _SignUpFormState extends State<SignUpForm> {
                       (Set<MaterialState> states) {
                     return states.contains(MaterialState.disabled)
                         ? null
-                        : Color(0xFFE1CEB1);
+                        : const Color(0xFFE1CEB1);
                   }),
                 ),
                 child: const Text(
