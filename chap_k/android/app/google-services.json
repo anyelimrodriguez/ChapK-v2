@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "77260781034",
+    "project_id": "chap-k",
+    "storage_bucket": "chap-k.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77260781034:android:8a29c158c802fbf5e3ee93",
+        "android_client_info": {
+          "package_name": "com.example.chap_k"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77260781034-4cl2ccegg3mmhfnoi2end9gsa80f5724.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAS0wiLJzbGn63qyOVKCeMewQME1oZsHcU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77260781034-4cl2ccegg3mmhfnoi2end9gsa80f5724.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,7 +2,6 @@ import 'package:chap_k/pages/WelcomePage.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 
-
 class Login extends StatefulWidget {
   const Login({super.key});
 
@@ -69,7 +68,7 @@ class _LoginState extends State<Login> {
                           child: Column(
                             children: [
                               makeInput(label: "Email"),
-                              makeInput(label: "Password", obsureText: false),
+                              makeInput(label: "Password", obsureText: true),
                               // makeInput(label: "Confirm Pasword", obsureText: true)
                             ],
                           ),
@@ -150,7 +149,7 @@ class _LoginState extends State<Login> {
   }
 }
 
-Widget makeInput({label, obsureText = true}) {
+Widget makeInput({label, obsureText = false}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -163,7 +162,7 @@ Widget makeInput({label, obsureText = true}) {
         height: 5,
       ),
       TextField(
-        // obscureText: obsureText,
+        obscureText: obsureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           enabledBorder: OutlineInputBorder(
