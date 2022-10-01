@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Write extends StatefulWidget {
   const Write({super.key});
@@ -30,7 +31,7 @@ class _WriteState extends State<Write> {
                 maxLines: 10,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Test',
+                  labelText: 'Write',
                   filled: true,
                   fillColor: Color(0xFFEBEBEB),
                   ),
@@ -53,7 +54,8 @@ class _WriteState extends State<Write> {
 }
 
 class PostButton extends StatelessWidget{
-  const PostButton({super.key});
+  PostButton({super.key});
+  final CollectionReference _post = FirebaseFirestore.instance.collection('Posts');
 
   @override
   Widget build(BuildContext context) {
@@ -73,8 +75,12 @@ class PostButton extends StatelessWidget{
           SizedBox(height: 20.0, width: 20.0),
         ]
       ),
-      onPressed: () {
-        //Should take text data and put into homepage
+      onPressed: () async {
+        final String story = "hello";
+        if (story != null) {
+          await _post.add({"Story": story});
+        }
+        
         Navigator.pushNamed(context, '/Home');
       },
       style: TextButton.styleFrom(
