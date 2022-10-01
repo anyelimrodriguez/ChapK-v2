@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -35,7 +36,6 @@ class _HomeState extends State<Home> {
             stream: _posts.snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
-                final DocumentSnapshot docsnap = streamSnapshot.data!.docs[0];
                 return Column(
                   children: <Widget>[
                     Container(
@@ -72,16 +72,18 @@ class _HomeState extends State<Home> {
                         child: Ink(
                             color: Colors.white,
                             height: wH - rm,
-                            child: ListView(
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(20.0),
-                              children: posts
-                                  .map((po) => PostWidget(
-                                        usrPfp: po.pfp,
-                                        // usrStory: po.story,
-                                        usrStory: docsnap['Story'],
-                                      ))
-                                  .toList(),
+                            child: ListView.builder(
+                              itemCount: streamSnapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot docsnap =
+                                    streamSnapshot.data!.docs[index];
+                                final random = new Random();
+                                int inde = random.nextInt(4);
+                                return PostWidget(
+                                  usrPfp: posts[inde].pfp,
+                                  usrStory: docsnap['Story'],
+                                );
+                              },
                             )))
                   ],
                 );
