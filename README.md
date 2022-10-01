@@ -29,7 +29,7 @@ with the Firestore database even though do he does not have any commits related 
 
 4) Calvin Wang -> Created the database on firestore. Read stories from firestore database.
 
-5) Preetom Chowdhury -> 
+5) Preetom Chowdhury -> Added ability to post new stories to Homepage through WritePage.
 
 -------------------------------------------------------------------------------------------------------------------
 
