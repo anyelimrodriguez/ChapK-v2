@@ -1,6 +1,6 @@
 # Group-Project-One-Team-2
+-------------------------------------------------------------------------------------------------------------------
 Group Members are (Calvin Wang, Hardip Chander, Anyeli Rodriguez, Preetom Chowdhury ,Kevin Ulcena).
-                     C             H              A                      P                 K
 Web App is named CHAP_K.
 We named it CHAP_K because it is an abbreviation of all our first names listed in the order 2 lines above. 
 Also, our web app has correlates to stories so CHAP_K sounds like Chapter and it goes with the gimmick of our web app.
