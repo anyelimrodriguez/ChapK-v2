@@ -143,19 +143,25 @@ class PostWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
-            // color: Color(0xff9d0505),
-            margin: const EdgeInsets.only(right: 20),
-            height: 70,
-            decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-
+          child: GestureDetector(
+            onTap: () {
+              //Navigator.pushNamed(context, '/ViewStory');
+              Navigator.pushNamed(context, '/ViewStory', arguments: usrStory);
+            },
             child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                usrStory,
-                style: const TextStyle(fontSize: 12, color: Colors.purple),
+              // color: Color(0xff9d0505),
+              margin: const EdgeInsets.only(right: 20),
+              height: 70,
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  usrStory,
+                  style: const TextStyle(fontSize: 12, color: Colors.purple),
+                ),
               ),
             ),
           ),
