@@ -29,11 +29,13 @@ class _HomeState extends State<Home> {
       FirebaseFirestore.instance.collection('Users');
 
   late Future<String> writeFuture;
+  late Future<String> postFuture;
 
   @override
   void initState() {
     super.initState();
-    writeFuture = _Translate('Write', 'zh-cn');
+    writeFuture = _Translate('Write', 'en');
+    postFuture = _Translate('', 'en');
   }
 
   @override
@@ -163,10 +165,27 @@ class Post {
   Post({required this.pfp, required this.story});
 }
 
-class PostWidget extends StatelessWidget {
+class PostWidget extends StatefulWidget {
   final String usrPfp;
   final String usrStory;
-  const PostWidget({super.key, required this.usrPfp, required this.usrStory});
+  PostWidget({super.key, required this.usrPfp, required this.usrStory});
+
+  @override
+  State<PostWidget> createState() => _PostWidgetState();
+}
+
+class _PostWidgetState extends State<PostWidget> {
+  late Future<String> postFuture;
+
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Users');
+
+  @override
+  void initState() {
+    super.initState();
+    postFuture = _Translate('', 'en');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -176,33 +195,54 @@ class PostWidget extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: CircleAvatar(
             radius: 35.0,
-            backgroundImage: AssetImage(usrPfp),
+            backgroundImage: AssetImage(widget.usrPfp),
           ),
         ),
-        Expanded(
-          child: GestureDetector(
-            onTap: () {
-              //Navigator.pushNamed(context, '/ViewStory');
-              Navigator.pushNamed(context, '/ViewStory', arguments: usrStory);
-            },
-            child: Container(
-              // color: Color(0xff9d0505),
-              margin: const EdgeInsets.only(right: 20),
-              height: 70,
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+        StreamBuilder(
+            stream: _user.snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+              if (streamSnapshot.hasData) {
+                final DocumentSnapshot docsnap = streamSnapshot.data!.docs[0];
+                postFuture = _Translate(widget.usrStory, docsnap['Language']);
+                return FutureBuilder<String>(
+                    future: postFuture,
+                    builder: (BuildContext ctx, AsyncSnapshot<String> snpsht) {
+                      if (snpsht.hasData) {
+                        return Expanded(
+                          child: GestureDetector(
+                            onTap: () {
+                              //Navigator.pushNamed(context, '/ViewStory');
+                              Navigator.pushNamed(context, '/ViewStory',
+                                  arguments: snpsht.data.toString());
+                            },
+                            child: Container(
+                              // color: Color(0xff9d0505),
+                              margin: const EdgeInsets.only(right: 20),
+                              height: 70,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(10))),
 
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                child: Text(
-                  usrStory,
-                  style: const TextStyle(fontSize: 12, color: Colors.purple),
-                ),
-              ),
-            ),
-          ),
-        ),
+                              child: Container(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(
+                                  snpsht.data.toString(),
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.purple),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      } else {
+                        return Container();
+                      }
+                    });
+              } else {
+                return Container();
+              }
+            }),
       ],
     );
   }
@@ -223,7 +263,7 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
   @override
   void initState() {
     super.initState();
-    langFuture = _Translate('Language', 'zh-cn');
+    langFuture = _Translate('Language', 'en');
   }
 
   @override
@@ -289,7 +329,7 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
   @override
   void initState() {
     super.initState();
-    signFuture = _Translate('Sign Out', 'zh-cn');
+    signFuture = _Translate('Sign Out', 'en');
   }
 
   @override
