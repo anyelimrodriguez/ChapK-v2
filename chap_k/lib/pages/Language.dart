@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Language extends StatefulWidget {
   const Language({super.key});
@@ -68,6 +69,7 @@ class _LanguageState extends State<Language> {
     Lang(name: 'Cymraeg', code: 'cy'),
     Lang(name: 'ייִדיש', code: 'yi'),
   ];
+
   @override
   Widget build(BuildContext context) {
     double wH = MediaQuery.of(context).size.height;
@@ -112,7 +114,11 @@ class Lang {
 class LangWidget extends StatelessWidget {
   final String name;
   final String code;
-  const LangWidget({super.key, required this.name, required this.code});
+  LangWidget({super.key, required this.name, required this.code});
+
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Users');
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -134,7 +140,8 @@ class LangWidget extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            Navigator.pushNamed(context, '/Home', arguments: code);
+            _user.doc('7VYOXEZk6wru9yHkGOdp').update({'Language': code});
+            Navigator.pushNamed(context, '/Home');
           },
           child: Text(
             name,

@@ -25,6 +25,9 @@ class _HomeState extends State<Home> {
   final CollectionReference _posts =
       FirebaseFirestore.instance.collection('Posts');
 
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Users');
+
   late Future<String> writeFuture;
 
   @override
@@ -35,12 +38,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments;
-    String curr_lang = 'en';
-    if (args != null) {
-      curr_lang = args.toString();
-    }
-    print(curr_lang);
     double wH = MediaQuery.of(context).size.height;
     double wW = MediaQuery.of(context).size.width;
     double rm = wH;
@@ -126,20 +123,32 @@ class _HomeState extends State<Home> {
             hoverColor: const Color(0xff35139d),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15.0))),
-            child: FutureBuilder<String>(
-                future: writeFuture,
+            child: StreamBuilder(
+                stream: _user.snapshots(),
                 builder:
-                    (BuildContext context, AsyncSnapshot<String> snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(
-                      snapshot.data.toString(),
-                      style: TextStyle(fontSize: 25, letterSpacing: 2),
-                    );
+                    (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+                  if (streamSnapshot.hasData) {
+                    final DocumentSnapshot docsnap =
+                        streamSnapshot.data!.docs[0];
+                    writeFuture = _Translate('Write', docsnap['Language']);
+                    return FutureBuilder<String>(
+                        future: writeFuture,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<String> snapshot) {
+                          if (snapshot.hasData) {
+                            return Text(
+                              snapshot.data.toString(),
+                              style: TextStyle(fontSize: 25, letterSpacing: 2),
+                            );
+                          } else {
+                            return Text(
+                              '',
+                              style: TextStyle(fontSize: 25, letterSpacing: 2),
+                            );
+                          }
+                        });
                   } else {
-                    return Text(
-                      '',
-                      style: TextStyle(fontSize: 25, letterSpacing: 2),
-                    );
+                    return Container();
                   }
                 }),
           ),
@@ -208,6 +217,8 @@ class HomeLanguageButton extends StatefulWidget {
 
 class _HomeLanguageButtonState extends State<HomeLanguageButton> {
   late Future<String> langFuture;
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Users');
 
   @override
   void initState() {
@@ -217,36 +228,47 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () async {
-        Navigator.pushNamed(context, '/Language');
-      },
-      icon: const Icon(Icons.public, color: Colors.red),
-      label: FutureBuilder<String>(
-          future: langFuture,
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                snapshot.data.toString(),
-                style: TextStyle(
-                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
-              );
-            } else {
-              return Text(
-                '',
-                style: TextStyle(
-                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
-              );
-            }
-          }),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.white,
-        minimumSize: const Size(50, 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-    );
+    return StreamBuilder(
+        stream: _user.snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          if (streamSnapshot.hasData) {
+            final DocumentSnapshot docsnap = streamSnapshot.data!.docs[0];
+            langFuture = _Translate('Language', docsnap['Language']);
+            return ElevatedButton.icon(
+              onPressed: () async {
+                Navigator.pushNamed(context, '/Language');
+              },
+              icon: const Icon(Icons.public, color: Colors.red),
+              label: FutureBuilder<String>(
+                  future: langFuture,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.toString(),
+                        style: TextStyle(
+                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                      );
+                    } else {
+                      return Text(
+                        '',
+                        style: TextStyle(
+                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                      );
+                    }
+                  }),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                minimumSize: const Size(50, 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }
 
@@ -261,6 +283,9 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
   final AuthService _auth = AuthService();
   late Future<String> signFuture;
 
+  final CollectionReference _user =
+      FirebaseFirestore.instance.collection('Users');
+
   @override
   void initState() {
     super.initState();
@@ -269,43 +294,54 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () async {
-        _auth.signOut();
-        Navigator.pushNamed(context, '/');
-      },
-      icon: const Icon(Icons.logout, color: Color(0xffad5a54)),
-      label: FutureBuilder<String>(
-          future: signFuture,
-          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            if (snapshot.hasData) {
-              return Text(
-                snapshot.data.toString(),
-                style: TextStyle(
-                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
-              );
-            } else {
-              return Text(
-                '',
-                style: TextStyle(
-                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
-              );
-            }
-          }),
-      style: ElevatedButton.styleFrom(
-        primary: Colors.grey.shade200,
-        minimumSize: const Size(50, 20),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-    );
+    return StreamBuilder(
+        stream: _user.snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+          if (streamSnapshot.hasData) {
+            final DocumentSnapshot docsnap = streamSnapshot.data!.docs[0];
+            signFuture = _Translate('Sign Out', docsnap['Language']);
+            print(docsnap['Language']);
+            return ElevatedButton.icon(
+              onPressed: () async {
+                _auth.signOut();
+                Navigator.pushNamed(context, '/');
+              },
+              icon: const Icon(Icons.logout, color: Color(0xffad5a54)),
+              label: FutureBuilder<String>(
+                  future: signFuture,
+                  builder:
+                      (BuildContext context, AsyncSnapshot<String> snapshot) {
+                    if (snapshot.hasData) {
+                      return Text(
+                        snapshot.data.toString(),
+                        style: TextStyle(
+                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                      );
+                    } else {
+                      return Text(
+                        '',
+                        style: TextStyle(
+                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                      );
+                    }
+                  }),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.grey.shade200,
+                minimumSize: const Size(50, 20),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+              ),
+            );
+          } else {
+            return Container();
+          }
+        });
   }
 }
 
 Future<String> _Translate(String sentence, String code) async {
   final translator = GoogleTranslator();
   var translation = await translator.translate(sentence, from: 'en', to: code);
-  //print(translation);
   return translation.text;
 }
