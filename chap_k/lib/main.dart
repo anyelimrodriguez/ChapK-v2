@@ -8,6 +8,7 @@ import 'package:chap_k/pages/Home.dart';
 import 'package:chap_k/pages/Write.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chap_k/pages/ViewStory.dart';
+import 'package:chap_k/pages/Language.dart';
 
 // Main is the point of execution ( have runApp() function in the main)
 void main() async {
@@ -42,6 +43,7 @@ class Chap_K extends StatelessWidget {
         '/Home': (context) => Home(),
         '/Write': (context) => Write(),
         '/ViewStory': (context) => ViewStory(),
+        '/Language': (context) => Language(),
       },
     );
   }
