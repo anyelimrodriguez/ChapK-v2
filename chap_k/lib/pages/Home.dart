@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
+import 'package:chap_k/pages/auth.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -62,7 +63,7 @@ class _HomeState extends State<Home> {
                                 height: wH / 10,
                                 width: wW / 10,
                               )),
-                          const HomeSignoutButton(),
+                          HomeSignoutButton(),
                         ],
                       ),
                     ),
@@ -194,11 +195,13 @@ class HomeLanguageButton extends StatelessWidget {
 }
 
 class HomeSignoutButton extends StatelessWidget {
-  const HomeSignoutButton({super.key});
+  HomeSignoutButton({super.key});
+  final AuthService _auth = AuthService();
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
+      onPressed: () async {
+        _auth.signOut();
         Navigator.pushNamed(context, '/');
       },
       icon: const Icon(Icons.logout, color: Color(0xffad5a54)),
