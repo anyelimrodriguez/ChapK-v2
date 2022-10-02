@@ -34,6 +34,7 @@ class _WriteState extends State<Write> {
                 onChanged:(value) { buffer.value = value;},
                 keyboardType: TextInputType.multiline,
                 maxLines: 10,
+                maxLength: 300,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   labelText: 'Write',
@@ -47,7 +48,7 @@ class _WriteState extends State<Write> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SizedBox(height: 100.0,width: 100.0),
+              SizedBox(height: 100.0,width: 400.0),
               ValueListenableBuilder<String>(
                 valueListenable: buffer,
                 builder: (context, value, child) {
