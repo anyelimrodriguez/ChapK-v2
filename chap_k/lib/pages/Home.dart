@@ -29,6 +29,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments;
+    print(args.toString());
     double wH = MediaQuery.of(context).size.height;
     double wW = MediaQuery.of(context).size.width;
     double rm = wH;

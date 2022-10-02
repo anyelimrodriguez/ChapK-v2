@@ -133,7 +133,9 @@ class LangWidget extends StatelessWidget {
               },
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, '/Home', arguments: code);
+          },
           child: Text(
             name,
             style: TextStyle(fontSize: 24),
