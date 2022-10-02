@@ -26,47 +26,47 @@ class _LanguageState extends State<Language> {
     Lang(name: 'Nederlands', code: 'nl'),
     Lang(name: 'English', code: 'en'),
     Lang(name: 'Eesti keel', code: 'et'),
-    Lang(name: '', code: 'tl'),
-    Lang(name: '', code: 'fi'),
-    Lang(name: '', code: 'fr'),
-    Lang(name: '', code: 'gl'),
-    Lang(name: '', code: 'ka'),
-    Lang(name: '', code: 'de'),
-    Lang(name: '', code: 'el'),
-    Lang(name: '', code: 'ht'),
-    Lang(name: '', code: 'iw'),
-    Lang(name: '', code: 'hi'),
-    Lang(name: '', code: 'hu'),
-    Lang(name: '', code: 'is'),
-    Lang(name: '', code: 'id'),
-    Lang(name: '', code: 'ga'),
-    Lang(name: '', code: 'it'),
-    Lang(name: '', code: 'ja'),
-    Lang(name: '', code: 'ko'),
-    Lang(name: '', code: 'lv'),
-    Lang(name: '', code: 'lt'),
-    Lang(name: '', code: 'mk'),
-    Lang(name: '', code: 'ms'),
-    Lang(name: '', code: 'mt'),
-    Lang(name: '', code: 'no'),
-    Lang(name: '', code: 'fa'),
-    Lang(name: '', code: 'pl'),
-    Lang(name: '', code: 'pt'),
-    Lang(name: '', code: 'ro'),
-    Lang(name: '', code: 'ru'),
-    Lang(name: '', code: 'sr'),
-    Lang(name: '', code: 'sk'),
-    Lang(name: '', code: 'sl'),
-    Lang(name: '', code: 'es'),
-    Lang(name: '', code: 'sw'),
-    Lang(name: '', code: 'sv'),
-    Lang(name: '', code: 'th'),
-    Lang(name: '', code: 'tr'),
-    Lang(name: '', code: 'uk'),
-    Lang(name: '', code: 'ur'),
-    Lang(name: '', code: 'vi'),
-    Lang(name: '', code: 'cy'),
-    Lang(name: '', code: 'yi'),
+    Lang(name: 'Filipino', code: 'tl'),
+    Lang(name: 'Suomi', code: 'fi'),
+    Lang(name: 'Français', code: 'fr'),
+    Lang(name: 'Galego', code: 'gl'),
+    Lang(name: 'ქართული', code: 'ka'),
+    Lang(name: 'Deutsch', code: 'de'),
+    Lang(name: 'Ελληνικά', code: 'el'),
+    Lang(name: 'Kreyòl ayisyen', code: 'ht'),
+    Lang(name: 'עברית', code: 'iw'),
+    Lang(name: 'हिन्दी', code: 'hi'),
+    Lang(name: 'Magyar', code: 'hu'),
+    Lang(name: 'Íslenska', code: 'is'),
+    Lang(name: 'Bahasa Indonesia', code: 'id'),
+    Lang(name: 'Gaeilge', code: 'ga'),
+    Lang(name: 'Italiano', code: 'it'),
+    Lang(name: '日本語', code: 'ja'),
+    Lang(name: '한국어', code: 'ko'),
+    Lang(name: 'Latviešu', code: 'lv'),
+    Lang(name: 'Lietuvių kalba', code: 'lt'),
+    Lang(name: 'Македонски', code: 'mk'),
+    Lang(name: 'Malay', code: 'ms'),
+    Lang(name: 'Malti', code: 'mt'),
+    Lang(name: 'Norsk', code: 'no'),
+    Lang(name: 'فارسی', code: 'fa'),
+    Lang(name: 'Polski', code: 'pl'),
+    Lang(name: 'Português', code: 'pt'),
+    Lang(name: 'Română', code: 'ro'),
+    Lang(name: 'Русский', code: 'ru'),
+    Lang(name: 'Српски', code: 'sr'),
+    Lang(name: 'Slovenčina', code: 'sk'),
+    Lang(name: 'Slovensko', code: 'sl'),
+    Lang(name: 'Español', code: 'es'),
+    Lang(name: 'Kiswahili', code: 'sw'),
+    Lang(name: 'Svenska', code: 'sv'),
+    Lang(name: 'ไทย', code: 'th'),
+    Lang(name: 'Türkçe', code: 'tr'),
+    Lang(name: 'Українська', code: 'uk'),
+    Lang(name: 'اردو', code: 'ur'),
+    Lang(name: 'Tiếng Việt', code: 'vi'),
+    Lang(name: 'Cymraeg', code: 'cy'),
+    Lang(name: 'ייִדיש', code: 'yi'),
   ];
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class _LanguageState extends State<Language> {
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: wW / 6, vertical: 0),
             child: Ink(
-                color: Colors.white,
+                color: Color.fromARGB(255, 247, 255, 229),
                 height: wH - rm,
                 child: ListView(
                   shrinkWrap: true,
@@ -115,8 +115,31 @@ class LangWidget extends StatelessWidget {
   const LangWidget({super.key, required this.name, required this.code});
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Text(name),
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: SizedBox(
+        child: TextButton(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all<Color>(
+                Color.fromARGB(255, 18, 105, 175)),
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.hovered))
+                  return Colors.blue.withOpacity(0.12);
+                if (states.contains(MaterialState.focused) ||
+                    states.contains(MaterialState.pressed))
+                  return Colors.blue.withOpacity(0.36);
+                return null; // Defer to the widget's default.
+              },
+            ),
+          ),
+          onPressed: () {},
+          child: Text(
+            name,
+            style: TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
     );
   }
 }
