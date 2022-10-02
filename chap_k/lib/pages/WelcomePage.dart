@@ -21,7 +21,7 @@ class _WelcomePageState extends State<WelcomePage> {
     
     return Scaffold(
       backgroundColor: Color(0xFFC3B1E1),
-      body: Column(                                                          // MAIN COLUMN of the whole Welcome Page -----------------------
+      body: Column(                                                          // MAIN COLUMN of the whole Welcome Page -----------
         children: <Widget>[
           Row(                                                               // FIRST ROW LOGO and LOGIN BUTTON 
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

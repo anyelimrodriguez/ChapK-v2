@@ -1,15 +1,31 @@
+import 'dart:html';
+
+import 'package:chap_k/pages/Home.dart';
 import 'package:chap_k/pages/WelcomePage.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
+import 'auth.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  // const Login({super.key});
+  final toggleView;
+  Login({this.toggleView});
 
   @override
   State<Login> createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+
+  // String error = '';
+  // String email = '';
+  // String password = '';
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,8 +83,9 @@ class _LoginState extends State<Login> {
                           padding: EdgeInsets.symmetric(horizontal: 40),
                           child: Column(
                             children: [
-                              makeInput(label: "Email"),
-                              makeInput(label: "Password", obsureText: true),
+                              _inputFields(context)
+                              // makeInput(label: "Email"),
+                              // makeInput(label: "Password", obsureText: true),
                               // makeInput(label: "Confirm Pasword", obsureText: true)
                             ],
                           ),
@@ -81,7 +98,29 @@ class _LoginState extends State<Login> {
                               hoverColor: Colors.amber,
                               minWidth: double.infinity,
                               height: 60,
-                              onPressed: () {},
+                              onPressed: () async {
+                                final Credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: nameController.text,
+                                        password: passwordController.text)
+                                    .then((value) {
+                                  print('Signed Succesfully');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Home()));
+                                });
+                                // if (_formKey.currentState!.validate()) {
+                                //   Home();
+                                //   dynamic result =
+                                //       await _auth.logInWithEmailAndPassword(
+                                //           email, password);
+                                //   if (result == null) {
+                                //     setState(() => error =
+                                //         'Log In Failed, Please try Again');
+                                //   }
+                                // }
+                              },
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40)),
@@ -147,7 +186,143 @@ class _LoginState extends State<Login> {
       ),
     );
   }
+
+  _inputFields(context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        SizedBox(
+          height: 5,
+        ),
+        TextFormField(
+          controller: nameController,
+          decoration: InputDecoration(
+            hintText: "Email Address",
+            filled: true,
+            fillColor: Colors.white,
+            prefixIcon: Icon(Icons.email_outlined),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.black,
+              ),
+            ),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          ),
+          // validator: (String? val) {
+          //   if (val!.isEmpty) {
+          //     return "Please Enter an Email";
+          //   }
+          //   return null;
+          // },
+          // onChanged: (val) {
+          //   setState(() => email = val);
+          // }
+        ),
+        SizedBox(
+          height: 30,
+        ),
+
+        //Password
+
+        SizedBox(
+          height: 5,
+        ),
+        TextFormField(
+          obscureText: true,
+          controller: passwordController,
+          decoration: InputDecoration(
+            hintText: "Password",
+            filled: true,
+            fillColor: Colors.white,
+            prefixIcon: Icon(Icons.password_outlined),
+            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+            enabledBorder: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.black,
+              ),
+            ),
+            border:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+          ),
+          // validator: (String? val) {
+          //   if (val!.length < 6) {
+          //     return "Password is incorrect";
+          //   }
+          //   return null;
+          // },
+          // onChanged: (val) {
+          //   setState(() => password = val);
+          // },
+        ),
+        SizedBox(
+          height: 30,
+        )
+      ],
+    );
+  }
 }
+
+// _inputFields(context) {
+//   return Column(
+//     crossAxisAlignment: CrossAxisAlignment.stretch,
+//     children: [
+//       SizedBox(
+//         height: 5,
+//       ),
+//       TextFormField(
+//           decoration: InputDecoration(
+//             hintText: "Email Address",
+//             filled: true,
+//             fillColor: Colors.white,
+//             prefixIcon: Icon(Icons.email_outlined),
+//             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//             enabledBorder: OutlineInputBorder(
+//               borderSide: BorderSide(
+//                 color: Colors.black,
+//               ),
+//             ),
+//             border:
+//                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+//           ),
+//           validator: (String? val) {
+//             if (val!.isEmpty) {
+//               return "Please Enter an Email";
+//             }
+//             return null;
+//           },
+//           onChanged: (val) {
+//             setState(() => email = val);
+//           }),
+//       SizedBox(
+//         height: 30,
+//       ),
+
+//       //Password
+
+//       SizedBox(
+//         height: 5,
+//       ),
+//       TextFormField(
+//         obscureText: true,
+//         decoration: InputDecoration(
+//           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+//           enabledBorder: OutlineInputBorder(
+//             borderSide: BorderSide(
+//               color: Colors.black,
+//             ),
+//           ),
+//           border:
+//               OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
+//         ),
+//       ),
+//       SizedBox(
+//         height: 30,
+//       )
+//     ],
+//   );
+// }
 
 Widget makeInput({label, obsureText = false}) {
   return Column(
@@ -161,7 +336,7 @@ Widget makeInput({label, obsureText = false}) {
       SizedBox(
         height: 5,
       ),
-      TextField(
+      TextFormField(
         obscureText: obsureText,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
