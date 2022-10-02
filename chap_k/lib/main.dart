@@ -6,6 +6,7 @@ import 'package:chap_k/pages/Login.dart';
 import 'package:chap_k/pages/SignUp.dart';
 import 'package:chap_k/pages/Home.dart';
 import 'package:chap_k/pages/Write.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chap_k/pages/ViewStory.dart';
 
 // Main is the point of execution ( have runApp() function in the main)
@@ -20,6 +21,12 @@ void main() async {
   // Chap_k is the root widget, the mother/father of all the widgets of our app
   runApp(Chap_K());
 }
+
+// Future main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//   await Firebase.initializeApp();
+//   runApp(Chap_K());
+// }
 
 class Chap_K extends StatelessWidget {
   const Chap_K({super.key});
