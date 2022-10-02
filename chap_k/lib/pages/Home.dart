@@ -5,7 +5,7 @@ import 'package:chap_k/pages/auth.dart';
 import 'package:translator/translator.dart';
 
 class Home extends StatefulWidget {
-  Home({super.key});
+  const Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -58,12 +58,12 @@ class _HomeState extends State<Home> {
                         minHeight: 70, //minimum height
                         maxHeight: wH,
                       ),
-                      color: Color(0xffC3B1E1),
+                      color: const Color(0xffC3B1E1),
                       height: wH / 10,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          HomeLanguageButton(),
+                          const HomeLanguageButton(),
                           Container(
                               constraints: BoxConstraints(
                                 minHeight: 100, //minimum height
@@ -77,7 +77,7 @@ class _HomeState extends State<Home> {
                                 height: wH / 10,
                                 width: wW / 10,
                               )),
-                          HomeSignoutButton(),
+                          const HomeSignoutButton(),
                         ],
                       ),
                     ),
@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot docsnap =
                                     streamSnapshot.data!.docs[index];
-                                final random = new Random();
+                                final random = Random();
                                 int inde = random.nextInt(4);
                                 return PostWidget(
                                   usrPfp: posts[inde].pfp,
@@ -140,10 +140,10 @@ class _HomeState extends State<Home> {
                           if (snapshot.hasData) {
                             return Text(
                               snapshot.data.toString(),
-                              style: TextStyle(fontSize: 25, letterSpacing: 2),
+                              style: const TextStyle(fontSize: 25, letterSpacing: 2),
                             );
                           } else {
-                            return Text(
+                            return const Text(
                               '',
                               style: TextStyle(fontSize: 25, letterSpacing: 2),
                             );
@@ -168,7 +168,7 @@ class Post {
 class PostWidget extends StatefulWidget {
   final String usrPfp;
   final String usrStory;
-  PostWidget({super.key, required this.usrPfp, required this.usrStory});
+  const PostWidget({super.key, required this.usrPfp, required this.usrStory});
 
   @override
   State<PostWidget> createState() => _PostWidgetState();
@@ -249,7 +249,7 @@ class _PostWidgetState extends State<PostWidget> {
 }
 
 class HomeLanguageButton extends StatefulWidget {
-  HomeLanguageButton({super.key});
+  const HomeLanguageButton({super.key});
 
   @override
   State<HomeLanguageButton> createState() => _HomeLanguageButtonState();
@@ -286,11 +286,11 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
                     if (snapshot.hasData) {
                       return Text(
                         snapshot.data.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.blue, fontSize: 30, letterSpacing: 2),
                       );
                     } else {
-                      return Text(
+                      return const Text(
                         '',
                         style: TextStyle(
                             color: Colors.blue, fontSize: 30, letterSpacing: 2),
@@ -298,7 +298,7 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
                     }
                   }),
               style: ElevatedButton.styleFrom(
-                primary: Colors.white,
+                backgroundColor: Colors.white,
                 minimumSize: const Size(50, 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -313,7 +313,7 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
 }
 
 class HomeSignoutButton extends StatefulWidget {
-  HomeSignoutButton({super.key});
+  const HomeSignoutButton({super.key});
 
   @override
   State<HomeSignoutButton> createState() => _HomeSignoutButtonState();
@@ -354,11 +354,11 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
                     if (snapshot.hasData) {
                       return Text(
                         snapshot.data.toString(),
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.blue, fontSize: 30, letterSpacing: 2),
                       );
                     } else {
-                      return Text(
+                      return const Text(
                         '',
                         style: TextStyle(
                             color: Colors.blue, fontSize: 30, letterSpacing: 2),
@@ -366,7 +366,7 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
                     }
                   }),
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey.shade200,
+                backgroundColor: Colors.grey.shade200,
                 minimumSize: const Size(50, 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -382,6 +382,12 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
 
 Future<String> _Translate(String sentence, String code) async {
   final translator = GoogleTranslator();
-  var translation = await translator.translate(sentence, from: 'en', to: code);
-  return translation.text;
+  try{
+    var translation = await translator.translate(sentence, from: 'en', to: code);
+    return translation.text;
+  }
+  catch(e){
+    print("the sentence is $sentence translate it to-> $code");
+  }
+  return ""; //if there's an error in translation, don't do anything
 }

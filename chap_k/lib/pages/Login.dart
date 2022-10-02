@@ -104,7 +104,7 @@ class _LoginState extends State<Login> {
                                       email: nameController.text,
                                       password: passwordController.text
                                   );
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage = "";
                                   if (e.code == 'invalid-email') {
@@ -130,7 +130,7 @@ class _LoginState extends State<Login> {
                                         label: '${e.code=='user-not-found'? "Sign Up" : "Try again"}',
                                         onPressed: () {
                                           // Code to execute.
-                                          if(e.code=='invalid-email')
+                                          if(e.code=='user-not-found')
                                           {
                                             Navigator.of(context).pushNamed('/SignUp');
                                           }
