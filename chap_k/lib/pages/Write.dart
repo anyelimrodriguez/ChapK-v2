@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Write extends StatefulWidget {
   const Write({super.key});
@@ -8,6 +10,8 @@ class Write extends StatefulWidget {
 }
 
 class _WriteState extends State<Write> {
+  final TextEditingController _writeBox = TextEditingController();
+  final ValueNotifier<String> buffer = new ValueNotifier("");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +27,17 @@ class _WriteState extends State<Write> {
         children: <Widget> [
           const SizedBox(height: 20.0, width: 20.0),
           Row(
-            children: const <Widget> [
+            children: <Widget> [
               Flexible(
                 child: TextField(
+                controller: _writeBox,
+                onChanged:(value) { buffer.value = value;},
                 keyboardType: TextInputType.multiline,
                 maxLines: 10,
+                maxLength: 300,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Test',
+                  labelText: 'Write',
                   filled: true,
                   fillColor: Color(0xFFEBEBEB),
                   ),
@@ -41,8 +48,13 @@ class _WriteState extends State<Write> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SizedBox(height: 100.0,width: 100.0),
-              PostButton(),
+              SizedBox(height: 100.0,width: 400.0),
+              ValueListenableBuilder<String>(
+                valueListenable: buffer,
+                builder: (context, value, child) {
+                  return PostButton(newStory: buffer);
+                }
+              ),
                 
             ]
           ),
@@ -53,8 +65,9 @@ class _WriteState extends State<Write> {
 }
 
 class PostButton extends StatelessWidget{
-  const PostButton({super.key});
-
+  PostButton({super.key, required this.newStory});
+  final CollectionReference _post = FirebaseFirestore.instance.collection('Posts');
+  final ValueListenable<String> newStory;
   @override
   Widget build(BuildContext context) {
     return TextButton(
@@ -73,8 +86,12 @@ class PostButton extends StatelessWidget{
           SizedBox(height: 20.0, width: 20.0),
         ]
       ),
-      onPressed: () {
-        //Should take text data and put into homepage
+      onPressed: () async {
+        final String story = newStory.value;
+        if (story != null) {
+          await _post.add({"Story": story});
+        }
+        
         Navigator.pushNamed(context, '/Home');
       },
       style: TextButton.styleFrom(

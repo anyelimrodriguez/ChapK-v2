@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,6 +20,9 @@ class _HomeState extends State<Home> {
         story: 'The quick brown fox jumps over the lazy dog')
   ];
 
+  final CollectionReference _posts =
+      FirebaseFirestore.instance.collection('Posts');
+
   @override
   Widget build(BuildContext context) {
     double wH = MediaQuery.of(context).size.height;
@@ -27,52 +32,66 @@ class _HomeState extends State<Home> {
     rm - 1;
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
-        body: Column(
-          children: <Widget>[
-            Container(
-              constraints: BoxConstraints(
-                minHeight: 70, //minimum height
-                maxHeight: wH,
-              ),
-              color: Color(0xffC3B1E1),
-              height: wH / 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  const HomeLanguageButton(),
-                  Container(
+        body: StreamBuilder(
+            stream: _posts.snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+              if (streamSnapshot.hasData) {
+                return Column(
+                  children: <Widget>[
+                    Container(
                       constraints: BoxConstraints(
-                        minHeight: 100, //minimum height
-                        minWidth: 100,
+                        minHeight: 70, //minimum height
                         maxHeight: wH,
-                        maxWidth: wW,
                       ),
-                      child: Image(
-                        image: const AssetImage('../../imgs/HomeLogo.png'),
-                        height: wH / 10,
-                        width: wW / 10,
-                      )),
-                  const HomeSignoutButton(),
-                ],
-              ),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(horizontal: wW / 6, vertical: 0),
-                child: Ink(
-                    color: Colors.white,
-                    height: wH - rm,
-                    child: ListView(
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(20.0),
-                      children: posts
-                          .map((po) => PostWidget(
-                                usrPfp: po.pfp,
-                                usrStory: po.story,
-                              ))
-                          .toList(),
-                    )))
-          ],
-        ),
+                      color: Color(0xffC3B1E1),
+                      height: wH / 10,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: <Widget>[
+                          const HomeLanguageButton(),
+                          Container(
+                              constraints: BoxConstraints(
+                                minHeight: 100, //minimum height
+                                minWidth: 100,
+                                maxHeight: wH,
+                                maxWidth: wW,
+                              ),
+                              child: Image(
+                                image:
+                                    const AssetImage('../../imgs/HomeLogo.png'),
+                                height: wH / 10,
+                                width: wW / 10,
+                              )),
+                          const HomeSignoutButton(),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: wW / 6, vertical: 0),
+                        child: Ink(
+                            color: Colors.white,
+                            height: wH - rm,
+                            child: ListView.builder(
+                              itemCount: streamSnapshot.data!.docs.length,
+                              itemBuilder: (context, index) {
+                                final DocumentSnapshot docsnap =
+                                    streamSnapshot.data!.docs[index];
+                                final random = new Random();
+                                int inde = random.nextInt(4);
+                                return PostWidget(
+                                  usrPfp: posts[inde].pfp,
+                                  usrStory: docsnap['Story'],
+                                );
+                              },
+                            )))
+                  ],
+                );
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
         floatingActionButton: Container(
           // width: 100,
           height: 70,
@@ -124,19 +143,25 @@ class PostWidget extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: Container(
-            // color: Color(0xff9d0505),
-            margin: const EdgeInsets.only(right: 20),
-            height: 70,
-            decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: const BorderRadius.all(Radius.circular(10))),
-
+          child: GestureDetector(
+            onTap: () {
+              //Navigator.pushNamed(context, '/ViewStory');
+              Navigator.pushNamed(context, '/ViewStory', arguments: usrStory);
+            },
             child: Container(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                usrStory,
-                style: const TextStyle(fontSize: 12, color: Colors.purple),
+              // color: Color(0xff9d0505),
+              margin: const EdgeInsets.only(right: 20),
+              height: 70,
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade300,
+                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  usrStory,
+                  style: const TextStyle(fontSize: 12, color: Colors.purple),
+                ),
               ),
             ),
           ),
