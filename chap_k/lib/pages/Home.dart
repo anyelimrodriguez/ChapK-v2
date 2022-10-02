@@ -5,7 +5,7 @@ import 'package:chap_k/pages/auth.dart';
 import 'package:translator/translator.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
 
   @override
   State<Home> createState() => _HomeState();
@@ -25,12 +25,22 @@ class _HomeState extends State<Home> {
   final CollectionReference _posts =
       FirebaseFirestore.instance.collection('Posts');
 
-  final translator = GoogleTranslator();
+  late Future<String> writeFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    writeFuture = _Translate('Write', 'zh-cn');
+  }
 
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments;
-    print(args.toString());
+    String curr_lang = 'en';
+    if (args != null) {
+      curr_lang = args.toString();
+    }
+    print(curr_lang);
     double wH = MediaQuery.of(context).size.height;
     double wW = MediaQuery.of(context).size.width;
     double rm = wH;
@@ -116,10 +126,22 @@ class _HomeState extends State<Home> {
             hoverColor: const Color(0xff35139d),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(15.0))),
-            child: const Text(
-              'Write',
-              style: TextStyle(fontSize: 25, letterSpacing: 2),
-            ),
+            child: FutureBuilder<String>(
+                future: writeFuture,
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(
+                      snapshot.data.toString(),
+                      style: TextStyle(fontSize: 25, letterSpacing: 2),
+                    );
+                  } else {
+                    return Text(
+                      '',
+                      style: TextStyle(fontSize: 25, letterSpacing: 2),
+                    );
+                  }
+                }),
           ),
         ));
   }
@@ -177,20 +199,46 @@ class PostWidget extends StatelessWidget {
   }
 }
 
-class HomeLanguageButton extends StatelessWidget {
+class HomeLanguageButton extends StatefulWidget {
   HomeLanguageButton({super.key});
+
+  @override
+  State<HomeLanguageButton> createState() => _HomeLanguageButtonState();
+}
+
+class _HomeLanguageButtonState extends State<HomeLanguageButton> {
+  late Future<String> langFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    langFuture = _Translate('Language', 'zh-cn');
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {
-        _Translate('Hello');
+      onPressed: () async {
         Navigator.pushNamed(context, '/Language');
       },
       icon: const Icon(Icons.public, color: Colors.red),
-      label: Text(
-        'Language',
-        style: TextStyle(color: Colors.blue, fontSize: 30, letterSpacing: 2),
-      ),
+      label: FutureBuilder<String>(
+          future: langFuture,
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data.toString(),
+                style: TextStyle(
+                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
+              );
+            } else {
+              return Text(
+                '',
+                style: TextStyle(
+                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
+              );
+            }
+          }),
       style: ElevatedButton.styleFrom(
         primary: Colors.white,
         minimumSize: const Size(50, 20),
@@ -202,9 +250,23 @@ class HomeLanguageButton extends StatelessWidget {
   }
 }
 
-class HomeSignoutButton extends StatelessWidget {
+class HomeSignoutButton extends StatefulWidget {
   HomeSignoutButton({super.key});
+
+  @override
+  State<HomeSignoutButton> createState() => _HomeSignoutButtonState();
+}
+
+class _HomeSignoutButtonState extends State<HomeSignoutButton> {
   final AuthService _auth = AuthService();
+  late Future<String> signFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    signFuture = _Translate('Sign Out', 'zh-cn');
+  }
+
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
@@ -213,10 +275,23 @@ class HomeSignoutButton extends StatelessWidget {
         Navigator.pushNamed(context, '/');
       },
       icon: const Icon(Icons.logout, color: Color(0xffad5a54)),
-      label: const Text(
-        'Sign Out',
-        style: TextStyle(color: Colors.blue, fontSize: 30, letterSpacing: 2),
-      ),
+      label: FutureBuilder<String>(
+          future: signFuture,
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            if (snapshot.hasData) {
+              return Text(
+                snapshot.data.toString(),
+                style: TextStyle(
+                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
+              );
+            } else {
+              return Text(
+                '',
+                style: TextStyle(
+                    color: Colors.blue, fontSize: 30, letterSpacing: 2),
+              );
+            }
+          }),
       style: ElevatedButton.styleFrom(
         primary: Colors.grey.shade200,
         minimumSize: const Size(50, 20),
@@ -228,8 +303,9 @@ class HomeSignoutButton extends StatelessWidget {
   }
 }
 
-void _Translate(String sentence) async {
+Future<String> _Translate(String sentence, String code) async {
   final translator = GoogleTranslator();
-  var translation = await translator.translate(sentence, from: 'en', to: 'it');
-  print(translation);
+  var translation = await translator.translate(sentence, from: 'en', to: code);
+  //print(translation);
+  return translation.text;
 }
