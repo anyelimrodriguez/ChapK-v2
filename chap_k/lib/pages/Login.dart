@@ -98,7 +98,64 @@ class _LoginState extends State<Login> {
                               hoverColor: Colors.amber,
                               minWidth: double.infinity,
                               height: 60,
-                              onPressed: () async {
+                              onPressed: () async{
+                                try {
+                                  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+                                      email: nameController.text,
+                                      password: passwordController.text
+                                  );
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                                } on FirebaseAuthException catch (e) {
+                                  String errorMessage = "";
+                                  if (e.code == 'invalid-email') {
+                                    errorMessage = "The email entered is invalid.";
+                                    print('Email invalid');
+                                  }
+                                  else if (e.code == 'user-disabled') {
+                                    errorMessage = "Your account has been disabled.";
+                                    print('User disabled');
+                                  } else if (e.code == 'user-not-found') {
+                                    errorMessage = "No account has been found for this email.";
+                                    print('User not found');
+                                  } else if (e.code == 'wrong-password') {
+                                    errorMessage = "You entered the wrong password.";
+                                    print('Wrong Password');
+                                  }  else{
+                                    errorMessage = "Something is wrong.";
+                                  }
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      action: SnackBarAction(
+                                        textColor: Color(0xFFC3B1E1),
+                                        label: '${e.code=='user-not-found'? "Sign Up" : "Try again"}',
+                                        onPressed: () {
+                                          // Code to execute.
+                                          if(e.code=='invalid-email')
+                                          {
+                                            Navigator.of(context).pushNamed('/SignUp');
+                                          }
+                                          //otherwise don't do anything
+                                        },
+                                      ),
+                                      content: Text(errorMessage),
+                                      duration: const Duration(seconds:15),
+                                      width: 400, // Width of the SnackBar.
+                                      //margin: EdgeInsets.fromLTRB(300, 100, 300, 100),
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0, // Inner padding for SnackBar content.
+                                      ),
+                                      behavior: SnackBarBehavior.floating,
+                                      //backgroundColor: Colors.white, //Color(0xFFC3B1E1),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                    ),
+                                  );
+                                } catch (e) {
+                                  print(e);
+                                }
+                              },
+                              /*onPressed: () async {
                                 final Credential = await FirebaseAuth.instance
                                     .signInWithEmailAndPassword(
                                         email: nameController.text,
@@ -109,7 +166,7 @@ class _LoginState extends State<Login> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => Home()));
-                                });
+                                });*/
                                 // if (_formKey.currentState!.validate()) {
                                 //   Home();
                                 //   dynamic result =
@@ -120,7 +177,7 @@ class _LoginState extends State<Login> {
                                 //         'Log In Failed, Please try Again');
                                 //   }
                                 // }
-                              },
+                              
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40)),

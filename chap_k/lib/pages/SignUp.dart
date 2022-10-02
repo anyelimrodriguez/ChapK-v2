@@ -123,7 +123,7 @@ class _SignUpState extends State<SignUp> {
                             SizedBox(
                               width: 400,
                               child: Card(
-                                color: Color(0xFFD9D9D9),
+                                color: const Color(0xFFD9D9D9),
                                 // child: SignUpForm(),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -192,27 +192,73 @@ class _SignUpState extends State<SignUp> {
                                         height: 50, //screenHeight/15,
                                         width: 300, //screenWidth/4,
                                         child: TextButton(
-                                          onPressed: () async {
-                                            final Credential = await FirebaseAuth
-                                                .instance
-                                                .createUserWithEmailAndPassword(
-                                                    email: _emailTextController
-                                                        .text,
-                                                    password:
-                                                        _passwordTextController
-                                                            .text)
+                                          onPressed: () async{
+                                            try {
+                                              final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                                email: _emailTextController.text,
+                                                password: _passwordTextController.text,
+                                              );
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                                            } on FirebaseAuthException catch (e) {
+                                              String errorMessage = "";
+                                              if (e.code == 'weak-password') {
+                                                errorMessage = "The password provided is too weak.";
+                                                print('The password provided is too weak.');
+                                              } else if (e.code == 'email-already-in-use') {
+                                                errorMessage = "An account already exists for that email.";
+                                                print('An account already exists for that email.');
+                                              } else if (e.code == 'invalid-email') {
+                                                errorMessage = "The email provided is invalid.";
+                                                print('Please enter a valid email');
+                                              } else{
+                                                errorMessage = "Something is wrong.";
+                                              }
+                                              ScaffoldMessenger.of(context).showSnackBar(
+                                                SnackBar(
+                                                  action: SnackBarAction(
+                                                    textColor: Color(0xFFC3B1E1),
+                                                    label: '${e.code=='email-already-in-use'? "Login" : "Try again"}',
+                                                    onPressed: () {
+                                                      // Code to execute.
+                                                      if(e.code=='email-already-in-use')
+                                                      {
+                                                        showLogInPage();
+                                                      }
+                                                      //otherwise don't do anything
+                                                    },
+                                                  ),
+                                                  content: Text(errorMessage),
+                                                  duration: const Duration(seconds:15),
+                                                  width: 400, // Width of the SnackBar.
+                                                  //margin: EdgeInsets.fromLTRB(300, 100, 300, 100),
+                                                  padding: const EdgeInsets.symmetric(
+                                                    horizontal: 8.0, // Inner padding for SnackBar content.
+                                                  ),
+                                                  behavior: SnackBarBehavior.floating,
+                                                  //backgroundColor: Colors.white, //Color(0xFFC3B1E1),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(10.0),
+                                                  ),
+                                                ),
+                                              );
+                                            } catch (e) {
+                                              print(e);
+                                            }
+                                          }
+                                          /*async {
+                                            final Credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                                                    email: _emailTextController.text,
+                                                    password: _passwordTextController.text)
                                                 .then((value) {
                                               print("Created Account");
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          Home()));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) =>Home()));
                                             }).onError((error, stackTrace) {
+                                              
                                               print(
                                                   "Error ${error.toString()}");
+                                              
                                             });
-                                          },
+                                          }*/,
                                           style: ButtonStyle(
                                             foregroundColor:
                                                 MaterialStateProperty
@@ -340,6 +386,8 @@ class _SignUpState extends State<SignUp> {
         }));
   }
 }
+
+
 
 // //This creates a widget for the sign up form
 // class SignUpForm extends StatefulWidget {
