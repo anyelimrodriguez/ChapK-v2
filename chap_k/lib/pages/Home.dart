@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:math';
 import 'package:chap_k/pages/auth.dart';
+import 'package:translator/translator.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,6 +24,8 @@ class _HomeState extends State<Home> {
 
   final CollectionReference _posts =
       FirebaseFirestore.instance.collection('Posts');
+
+  final translator = GoogleTranslator();
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +52,7 @@ class _HomeState extends State<Home> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          const HomeLanguageButton(),
+                          HomeLanguageButton(),
                           Container(
                               constraints: BoxConstraints(
                                 minHeight: 100, //minimum height
@@ -173,13 +176,16 @@ class PostWidget extends StatelessWidget {
 }
 
 class HomeLanguageButton extends StatelessWidget {
-  const HomeLanguageButton({super.key});
+  HomeLanguageButton({super.key});
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
-      onPressed: () {},
+      onPressed: () {
+        _Translate('Hello');
+        Navigator.pushNamed(context, '/Language');
+      },
       icon: const Icon(Icons.public, color: Colors.red),
-      label: const Text(
+      label: Text(
         'Language',
         style: TextStyle(color: Colors.blue, fontSize: 30, letterSpacing: 2),
       ),
@@ -218,4 +224,10 @@ class HomeSignoutButton extends StatelessWidget {
       ),
     );
   }
+}
+
+void _Translate(String sentence) async {
+  final translator = GoogleTranslator();
+  var translation = await translator.translate(sentence, from: 'en', to: 'it');
+  print(translation);
 }
