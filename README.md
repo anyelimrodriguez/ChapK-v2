@@ -15,19 +15,19 @@ Complete 70% of the README.md file so the Project Details are available.
 
 3) Anyeli Rodriguez -> Used Figma to design the project.
 
-4) Calvin Wang -> Used Figma to design the project. Worked on Home Page (Home.dart) 
+4) Calvin Wang -> Used Figma to design the project. Worked on Home Page (Home.dart) Added extra page to view    each story in fullscreen. Added navigation to sign out button, write button, and each container of stories. Made Home Page responsive using math, constraints, etc.
 
 5) Preetom Chowdhury -> Worked on Write Page (Write.dart) 
 
 Backend Responsibilties
 1) Hardip Chander -> Created the Firebase project on the Firebase Console. Connected the Firebase Project with the Web App. Helped Calvin and Preetom 
-with the Firestore database even though do he does not have any commits related to the database.Taught the group how to deploy the web app. Read documentation togather.
+with the Firestore database even though do he does not have any commits related to the database.Taught the group how to deploy the web app. Read documentation together.
 
 2) Kevin Ulcena -> Authentication Login 
 
 3) Anyeli Rodriguez -> Authentication Sign up
 
-4) Calvin Wang -> Created the database on firestore. Read stories from firestore database.
+4) Calvin Wang -> Created the database on firestore. Home Page is now able to get all of the stories from firestore database and store them into each contianer in the ListView builder.
 
 5) Preetom Chowdhury -> Added ability to post new stories to Homepage through WritePage.
 
