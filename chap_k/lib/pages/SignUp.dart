@@ -198,7 +198,7 @@ class _SignUpState extends State<SignUp> {
                                                 email: _emailTextController.text,
                                                 password: _passwordTextController.text,
                                               );
-                                              Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
+                                              Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
                                             } on FirebaseAuthException catch (e) {
                                               String errorMessage = "";
                                               if (e.code == 'weak-password') {

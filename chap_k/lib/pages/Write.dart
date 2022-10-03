@@ -88,7 +88,8 @@ class PostButton extends StatelessWidget{
       ),
       onPressed: () async {
         final String story = newStory.value;
-        if (story != null) {
+        final String testEmptyStory = story.trim(); //trims whitespace, if user only entered whitespace, this will be empty
+        if (story != ""&&testEmptyStory.isNotEmpty) {
           await _post.add({"Story": story});
         }
         
