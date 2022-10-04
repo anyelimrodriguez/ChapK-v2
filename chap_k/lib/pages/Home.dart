@@ -31,11 +31,18 @@ class _HomeState extends State<Home> {
   late Future<String> writeFuture;
   late Future<String> postFuture;
 
+  List<int> randPFP = [];
+
   @override
   void initState() {
     super.initState();
     writeFuture = _Translate('Write', 'en');
     postFuture = _Translate('', 'en');
+    for (int i = 0; i < 50; i++) {
+      final random = Random();
+      int randNum = random.nextInt(4);
+      randPFP.add(randNum);
+    }
   }
 
   @override
@@ -45,6 +52,7 @@ class _HomeState extends State<Home> {
     double rm = wH;
     rm = (wH < 700) ? 70 : rm / 10;
     rm - 1;
+
     return Scaffold(
         backgroundColor: Colors.grey.shade300,
         body: StreamBuilder(
@@ -92,10 +100,9 @@ class _HomeState extends State<Home> {
                               itemBuilder: (context, index) {
                                 final DocumentSnapshot docsnap =
                                     streamSnapshot.data!.docs[index];
-                                final random = Random();
-                                int inde = random.nextInt(4);
+                                var randIndex = randPFP[index];
                                 return PostWidget(
-                                  usrPfp: posts[inde].pfp,
+                                  usrPfp: posts[randIndex].pfp,
                                   usrStory: docsnap['Story'],
                                 );
                               },
@@ -140,7 +147,8 @@ class _HomeState extends State<Home> {
                           if (snapshot.hasData) {
                             return Text(
                               snapshot.data.toString(),
-                              style: const TextStyle(fontSize: 25, letterSpacing: 2),
+                              style: const TextStyle(
+                                  fontSize: 25, letterSpacing: 2),
                             );
                           } else {
                             return const Text(
@@ -382,11 +390,11 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
 
 Future<String> _Translate(String sentence, String code) async {
   final translator = GoogleTranslator();
-  try{
-    var translation = await translator.translate(sentence, from: 'en', to: code);
+  try {
+    var translation =
+        await translator.translate(sentence, from: 'en', to: code);
     return translation.text;
-  }
-  catch(e){
+  } catch (e) {
     print("the sentence is $sentence translate it to-> $code");
   }
   return ""; //if there's an error in translation, don't do anything
