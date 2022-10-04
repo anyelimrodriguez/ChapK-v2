@@ -13,8 +13,7 @@ Complete 70% of the README.md file so the Project Details are available.
 
 2) Kevin Ulcena -> Worked on Login Page (Login.dart). Created the logo for the web app.
 
-3) Anyeli Rodriguez -> Used Figma to design the project. Worked on Sign Up page and made it responsive. Fixed issue with adding empty stories that prevented
-the homepage from loading. 
+3) Anyeli Rodriguez -> Used Figma to design the project. Worked on Sign Up page and made it responsive. Fixed issue with adding empty stories that prevented the homepage from loading. 
 
 4) Calvin Wang -> Used Figma to design the project. Worked on Home Page (Home.dart) Added extra page to view    each story in fullscreen. Added navigation to sign out button, write button, and each container of stories. Made Home Page responsive using math, constraints, etc.
 
@@ -34,5 +33,8 @@ with the Firestore database even though do he does not have any commits related 
 
 -------------------------------------------------------------------------------------------------------------------
 
-Project Information
-Our Web App is starts in the Welcome Page where the user can press the login button to login or press the Get Started button to sign up.
+General Project Information
+Our Web App starts in the Welcome Page where the user can press the login button to login or press the Get Started button to sign up.
+They create an account (or click to go to sign in page) and are led into the homepage where they can view other people's stories, 
+change the language, and write a post of their own.
+The posts are stored in the FireStore database and the accounts are stored and authenticated by Firebase Auth.
