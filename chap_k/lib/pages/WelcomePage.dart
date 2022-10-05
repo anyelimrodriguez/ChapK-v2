@@ -158,7 +158,7 @@ class LoginInButton extends StatelessWidget {
             height: MediaQuery.of(context).size.height/20,
             child: FittedBox(
               child: Text(
-                "Login In",
+                "Login",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 25,
