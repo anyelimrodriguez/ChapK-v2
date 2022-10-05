@@ -2,6 +2,10 @@ import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+// Setting the Global Variables for the Window Height and Width
+double HeightOfScreen=0;
+double WidthOfScreen=0;
+
 class Write extends StatefulWidget {
   const Write({super.key});
 
@@ -14,6 +18,10 @@ class _WriteState extends State<Write> {
   final ValueNotifier<String> buffer = new ValueNotifier("");
   @override
   Widget build(BuildContext context) {
+    // Update the window dimensions with the Media Query
+    HeightOfScreen=MediaQuery.of(context).size.height;
+    WidthOfScreen=MediaQuery.of(context).size.width; 
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -48,7 +56,7 @@ class _WriteState extends State<Write> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SizedBox(height: 100.0,width: 400.0),
+              SizedBox(height: HeightOfScreen/10, width: WidthOfScreen/1.75),
               ValueListenableBuilder<String>(
                 valueListenable: buffer,
                 builder: (context, value, child) {
