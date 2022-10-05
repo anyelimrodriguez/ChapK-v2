@@ -19,11 +19,7 @@ class _LoginState extends State<Login> {
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
 
-  // String error = '';
-  // String email = '';
-  // String password = '';
-
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
@@ -73,13 +69,6 @@ class _LoginState extends State<Login> {
                             SizedBox(
                               height: 20,
                             ),
-                            // Text(
-                            //   "Create an Account,Its free",
-                            //   style: TextStyle(
-                            //     fontSize: 15,
-                            //     color: Colors.grey[700],
-                            //   ),
-                            // ),
                             SizedBox(
                               height: 30,
                             )
@@ -88,12 +77,7 @@ class _LoginState extends State<Login> {
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 40),
                           child: Column(
-                            children: [
-                              _inputFields(context)
-                              // makeInput(label: "Email"),
-                              // makeInput(label: "Password", obsureText: true),
-                              // makeInput(label: "Confirm Pasword", obsureText: true)
-                            ],
+                            children: [_inputFields(context)],
                           ),
                         ),
                         Padding(
@@ -108,7 +92,7 @@ class _LoginState extends State<Login> {
                                 try {
                                   final credential = await FirebaseAuth.instance
                                       .signInWithEmailAndPassword(
-                                          email: nameController.text,
+                                          email: emailController.text,
                                           password: passwordController.text);
                                   Navigator.push(
                                       context,
@@ -170,29 +154,6 @@ class _LoginState extends State<Login> {
                                   print(e);
                                 }
                               },
-                              /*onPressed: () async {
-                                final Credential = await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: nameController.text,
-                                        password: passwordController.text)
-                                    .then((value) {
-                                  print('Signed Succesfully');
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Home()));
-                                });*/
-                              // if (_formKey.currentState!.validate()) {
-                              //   Home();
-                              //   dynamic result =
-                              //       await _auth.logInWithEmailAndPassword(
-                              //           email, password);
-                              //   if (result == null) {
-                              //     setState(() => error =
-                              //         'Log In Failed, Please try Again');
-                              //   }
-                              // }
-
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40)),
@@ -267,7 +228,7 @@ class _LoginState extends State<Login> {
           height: 5,
         ),
         TextFormField(
-          controller: nameController,
+          controller: emailController,
           decoration: InputDecoration(
             hintText: "Email Address",
             filled: true,
@@ -282,15 +243,6 @@ class _LoginState extends State<Login> {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
           ),
-          // validator: (String? val) {
-          //   if (val!.isEmpty) {
-          //     return "Please Enter an Email";
-          //   }
-          //   return null;
-          // },
-          // onChanged: (val) {
-          //   setState(() => email = val);
-          // }
         ),
         SizedBox(
           height: 30,
@@ -318,15 +270,6 @@ class _LoginState extends State<Login> {
             border:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
           ),
-          // validator: (String? val) {
-          //   if (val!.length < 6) {
-          //     return "Password is incorrect";
-          //   }
-          //   return null;
-          // },
-          // onChanged: (val) {
-          //   setState(() => password = val);
-          // },
         ),
         SizedBox(
           height: 30,
@@ -335,66 +278,6 @@ class _LoginState extends State<Login> {
     );
   }
 }
-
-// _inputFields(context) {
-//   return Column(
-//     crossAxisAlignment: CrossAxisAlignment.stretch,
-//     children: [
-//       SizedBox(
-//         height: 5,
-//       ),
-//       TextFormField(
-//           decoration: InputDecoration(
-//             hintText: "Email Address",
-//             filled: true,
-//             fillColor: Colors.white,
-//             prefixIcon: Icon(Icons.email_outlined),
-//             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//             enabledBorder: OutlineInputBorder(
-//               borderSide: BorderSide(
-//                 color: Colors.black,
-//               ),
-//             ),
-//             border:
-//                 OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-//           ),
-//           validator: (String? val) {
-//             if (val!.isEmpty) {
-//               return "Please Enter an Email";
-//             }
-//             return null;
-//           },
-//           onChanged: (val) {
-//             setState(() => email = val);
-//           }),
-//       SizedBox(
-//         height: 30,
-//       ),
-
-//       //Password
-
-//       SizedBox(
-//         height: 5,
-//       ),
-//       TextFormField(
-//         obscureText: true,
-//         decoration: InputDecoration(
-//           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-//           enabledBorder: OutlineInputBorder(
-//             borderSide: BorderSide(
-//               color: Colors.black,
-//             ),
-//           ),
-//           border:
-//               OutlineInputBorder(borderSide: BorderSide(color: Colors.black)),
-//         ),
-//       ),
-//       SizedBox(
-//         height: 30,
-//       )
-//     ],
-//   );
-// }
 
 Widget makeInput({label, obsureText = false}) {
   return Column(
