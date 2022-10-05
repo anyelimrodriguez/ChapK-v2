@@ -56,7 +56,7 @@ class _WriteState extends State<Write> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              SizedBox(height: HeightOfScreen/15, width: WidthOfScreen/15),
+              SizedBox(height: HeightOfScreen/10, width: WidthOfScreen/1.75),
               ValueListenableBuilder<String>(
                 valueListenable: buffer,
                 builder: (context, value, child) {
