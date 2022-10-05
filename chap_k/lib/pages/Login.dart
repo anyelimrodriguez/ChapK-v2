@@ -28,24 +28,30 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    bool screenIsWideEnough = screenWidth > 1000;
+
     return Scaffold(
       backgroundColor: Color(0xFFC3B1E1),
       body: Center(
-        child: SafeArea(
+        child: SingleChildScrollView(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               // child: SingleChildScrollView(
 
               Container(
+                constraints: BoxConstraints(maxWidth: 500, minHeight: 470),
+
                 alignment: Alignment.center,
                 // padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
                 margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(width: 1, color: Colors.black)),
-                height: MediaQuery.of(context).size.height,
-                width: 500,
+                height: screenHeight,
+                width: screenWidth / 1.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -98,56 +104,65 @@ class _LoginState extends State<Login> {
                               hoverColor: Colors.amber,
                               minWidth: double.infinity,
                               height: 60,
-                              onPressed: () async{
+                              onPressed: () async {
                                 try {
-                                  final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-                                      email: nameController.text,
-                                      password: passwordController.text
-                                  );
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                                  final credential = await FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: nameController.text,
+                                          password: passwordController.text);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Home()));
                                 } on FirebaseAuthException catch (e) {
                                   String errorMessage = "";
                                   if (e.code == 'invalid-email') {
-                                    errorMessage = "The email entered is invalid.";
+                                    errorMessage =
+                                        "The email entered is invalid.";
                                     print('Email invalid');
-                                  }
-                                  else if (e.code == 'user-disabled') {
-                                    errorMessage = "Your account has been disabled.";
+                                  } else if (e.code == 'user-disabled') {
+                                    errorMessage =
+                                        "Your account has been disabled.";
                                     print('User disabled');
                                   } else if (e.code == 'user-not-found') {
-                                    errorMessage = "No account has been found for this email.";
+                                    errorMessage =
+                                        "No account has been found for this email.";
                                     print('User not found');
                                   } else if (e.code == 'wrong-password') {
-                                    errorMessage = "You entered the wrong password.";
+                                    errorMessage =
+                                        "You entered the wrong password.";
                                     print('Wrong Password');
-                                  }  else{
+                                  } else {
                                     errorMessage = "Something is wrong.";
                                   }
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
                                       action: SnackBarAction(
                                         textColor: Color(0xFFC3B1E1),
-                                        label: '${e.code=='user-not-found'? "Sign Up" : "Try again"}',
+                                        label:
+                                            '${e.code == 'user-not-found' ? "Sign Up" : "Try again"}',
                                         onPressed: () {
                                           // Code to execute.
-                                          if(e.code=='user-not-found')
-                                          {
-                                            Navigator.of(context).pushNamed('/SignUp');
+                                          if (e.code == 'user-not-found') {
+                                            Navigator.of(context)
+                                                .pushNamed('/SignUp');
                                           }
                                           //otherwise don't do anything
                                         },
                                       ),
                                       content: Text(errorMessage),
-                                      duration: const Duration(seconds:15),
+                                      duration: const Duration(seconds: 15),
                                       width: 400, // Width of the SnackBar.
                                       //margin: EdgeInsets.fromLTRB(300, 100, 300, 100),
                                       padding: const EdgeInsets.symmetric(
-                                        horizontal: 8.0, // Inner padding for SnackBar content.
+                                        horizontal:
+                                            8.0, // Inner padding for SnackBar content.
                                       ),
                                       behavior: SnackBarBehavior.floating,
                                       //backgroundColor: Colors.white, //Color(0xFFC3B1E1),
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
                                       ),
                                     ),
                                   );
@@ -167,17 +182,17 @@ class _LoginState extends State<Login> {
                                       MaterialPageRoute(
                                           builder: (context) => Home()));
                                 });*/
-                                // if (_formKey.currentState!.validate()) {
-                                //   Home();
-                                //   dynamic result =
-                                //       await _auth.logInWithEmailAndPassword(
-                                //           email, password);
-                                //   if (result == null) {
-                                //     setState(() => error =
-                                //         'Log In Failed, Please try Again');
-                                //   }
-                                // }
-                              
+                              // if (_formKey.currentState!.validate()) {
+                              //   Home();
+                              //   dynamic result =
+                              //       await _auth.logInWithEmailAndPassword(
+                              //           email, password);
+                              //   if (result == null) {
+                              //     setState(() => error =
+                              //         'Log In Failed, Please try Again');
+                              //   }
+                              // }
+
                               color: Colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(40)),
@@ -224,9 +239,9 @@ class _LoginState extends State<Login> {
                           children: <Widget>[
                             // SizedBox(height: 10.0, width: 10.0),
                             Image.asset(
-                              '../../imgs/logo.png',
+                              '../../imgs/HomeLogo.png',
                               fit: BoxFit.contain,
-                              height: 200,
+                              height: screenHeight / 6,
                               width: 200,
                             )
                           ],
