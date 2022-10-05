@@ -94,8 +94,8 @@ class _WelcomePageState extends State<WelcomePage> {
           SizedBox(height: windowHeight/30, width: 50.0),
           Row(
             children: <Widget> [
-              Image.asset(
-                '../../imgs/welcomepage.png',
+              Image.asset( 
+                'assets/imgs/welcomepage.png',
                 fit: BoxFit.contain,
                 height: windowHeight/3,
                 width: windowWidth/2,
@@ -125,7 +125,7 @@ class Logo extends StatelessWidget {
       child: Card(
         color: Color(0xFFFFBA01),
         child: Image.asset(
-          '../../imgs/logo.png',
+          'assets/imgs/logo.png',
           fit: BoxFit.contain,
           height: windowHeight/10,
           width: windowWidth/10,

@@ -66,7 +66,7 @@ class _SignUpState extends State<SignUp> {
                               fontWeight: FontWeight.bold,
                             )),
                         Image.asset(
-                          '../../imgs/SignUpPageReading.png',
+                          'assets/imgs/SignUpPageReading.png',
                           //fit: BoxFit.contain,
                           width: screenHeight/2,
                           height: screenHeight/2,

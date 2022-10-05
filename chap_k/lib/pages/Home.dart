@@ -81,7 +81,7 @@ class _HomeState extends State<Home> {
                               ),
                               child: Image(
                                 image:
-                                    const AssetImage('../../imgs/HomeLogo.png'),
+                                    const AssetImage('assets/imgs/HomeLogo.png'),
                                 height: wH / 10,
                                 width: wW / 10,
                               )),
