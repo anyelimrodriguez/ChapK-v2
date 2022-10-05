@@ -13,12 +13,12 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<Post> posts = [
-    Post(pfp: '../../imgs/DummyImgs/pfp.png', story: 'HI'),
-    Post(pfp: '../../imgs/DummyImgs/pfp2.png', story: 'HOLA'),
-    Post(pfp: '../../imgs/DummyImgs/pfp3.png', story: 'CIAO'),
-    Post(pfp: '../../imgs/DummyImgs/pfp4.png', story: 'BONJOUR'),
+    Post(pfp: 'imgs/pfp.png', story: 'HI'),
+    Post(pfp: 'imgs/pfp2.png', story: 'HOLA'),
+    Post(pfp: 'imgs/pfp3.png', story: 'CIAO'),
+    Post(pfp: 'imgs/pfp4.png', story: 'BONJOUR'),
     Post(
-        pfp: '../../imgs/DummyImgs/pfp5.png',
+        pfp: 'imgs/pfp5.png',
         story: 'The quick brown fox jumps over the lazy dog')
   ];
 
@@ -80,8 +80,7 @@ class _HomeState extends State<Home> {
                                 maxWidth: wW,
                               ),
                               child: Image(
-                                image:
-                                    const AssetImage('assets/imgs/HomeLogo.png'),
+                                image: const AssetImage('imgs/HomeLogo.png'),
                                 height: wH / 10,
                                 width: wW / 10,
                               )),
