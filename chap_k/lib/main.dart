@@ -6,7 +6,6 @@ import 'package:chap_k/pages/Login.dart';
 import 'package:chap_k/pages/SignUp.dart';
 import 'package:chap_k/pages/Home.dart';
 import 'package:chap_k/pages/Write.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:chap_k/pages/ViewStory.dart';
 import 'package:chap_k/pages/Language.dart';
 
