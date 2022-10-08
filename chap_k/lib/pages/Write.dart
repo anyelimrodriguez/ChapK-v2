@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
 // Setting the Global Variables for the Window Height and Width
 double HeightOfScreen=0;
 double WidthOfScreen=0;
@@ -27,8 +31,11 @@ class _WriteState extends State<Write> {
       appBar: AppBar(
         title: const Text(
           "Write",
+          style: TextStyle(
+            color: Color(0xFFF1FFE7),
+          ),
         ),
-        backgroundColor: const Color(0xFFC3B1E1),
+        backgroundColor: const Color(0xFF1A1B41),
         centerTitle: true,
       ),
       body: Column(
@@ -37,17 +44,25 @@ class _WriteState extends State<Write> {
           Row(
             children: <Widget> [
               Flexible(
-                child: TextField(
-                controller: _writeBox,
-                onChanged:(value) { buffer.value = value;},
-                keyboardType: TextInputType.multiline,
-                maxLines: 10,
-                maxLength: 300,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Write',
-                  filled: true,
-                  fillColor: Color(0xFFEBEBEB),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+                  child: TextField(
+                  controller: _writeBox,
+                  onChanged:(value) { buffer.value = value;},
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 10,
+                  maxLength: 300,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Write',
+                    labelStyle: TextStyle(
+                      color: Color(0xFF1A1B41),
+                    ),
+                    filled: true,
+                    //hoverColor: Colors.green,
+                    fillColor: Color(0xFFEBEBEB),
+                    
+                    ),
                   ),
                 ),
               ),
@@ -79,21 +94,6 @@ class PostButton extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget> [
-          SizedBox(height: 20.0, width: 20.0),
-          Text(
-            "Post",
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          SizedBox(height: 20.0, width: 20.0),
-        ]
-      ),
       onPressed: () async {
         final String story = newStory.value;
         final String testEmptyStory = story.trim(); //trims whitespace, if user only entered whitespace, this will be empty
@@ -105,7 +105,22 @@ class PostButton extends StatelessWidget{
       },
       style: TextButton.styleFrom(
         elevation: 0,
-        backgroundColor: Colors.lightGreen,
+        backgroundColor: const Color(0xFF1A1B41),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: const <Widget> [
+          SizedBox(height: 20.0, width: 20.0),
+          Text(
+            "Post",
+            style: TextStyle(
+              color: Color(0xFFF1FFE7),
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20.0, width: 20.0),
+        ]
       ),
     );
   }

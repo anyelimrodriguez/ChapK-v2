@@ -1,5 +1,9 @@
 import "package:flutter/material.dart";
-
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
 class ViewStory extends StatefulWidget {
   // final String story;
   const ViewStory({super.key});
@@ -20,7 +24,7 @@ class _ViewStoryState extends State<ViewStory> {
           title: const Text(
             "Story",
           ),
-          backgroundColor: const Color(0xFFC3B1E1),
+          backgroundColor: const Color(0xFF1A1B41),
           centerTitle: true,
         ),
         body: Padding(
@@ -28,14 +32,14 @@ class _ViewStoryState extends State<ViewStory> {
               EdgeInsets.symmetric(horizontal: wW / 100, vertical: wH / 100),
           child: SizedBox.expand(
             child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.grey.shade300,
-                  borderRadius: const BorderRadius.all(Radius.circular(10))),
+              decoration: const BoxDecoration(
+                  color: Color(0xFFF1FFE7),
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
               child: Container(
                 padding: const EdgeInsets.all(10),
                 child: Text(
                   args.toString(),
-                  style: const TextStyle(fontSize: 36, color: Colors.purple),
+                  style: const TextStyle(fontSize: 36, color: Color(0xFF1A1B41)),
                 ),
               ),
             ),

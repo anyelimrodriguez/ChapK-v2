@@ -1,6 +1,10 @@
 import "package:flutter/material.dart";
 import 'package:cloud_firestore/cloud_firestore.dart';
-
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
 class Language extends StatefulWidget {
   const Language({super.key});
 
@@ -78,18 +82,18 @@ class _LanguageState extends State<Language> {
     rm = (wH < 700) ? 70 : rm / 10;
     rm - 1;
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF1FFE7),
         appBar: AppBar(
           title: const Text(
             "Language",
           ),
-          backgroundColor: const Color(0xFFC3B1E1),
+          backgroundColor: const Color(0xFF1A1B41),
           centerTitle: true,
         ),
         body: Padding(
             padding: EdgeInsets.symmetric(horizontal: wW / 6, vertical: 0),
             child: Ink(
-                color: Color.fromARGB(255, 247, 255, 229),
+                color: Color(0xFFC3B1E1),
                 height: wH - rm,
                 child: ListView(
                   shrinkWrap: true,
@@ -127,14 +131,16 @@ class LangWidget extends StatelessWidget {
         child: TextButton(
           style: ButtonStyle(
             foregroundColor: MaterialStateProperty.all<Color>(
-                Color.fromARGB(255, 18, 105, 175)),
+                const Color.fromARGB(255, 18, 105, 175)),
             overlayColor: MaterialStateProperty.resolveWith<Color?>(
               (Set<MaterialState> states) {
-                if (states.contains(MaterialState.hovered))
+                if (states.contains(MaterialState.hovered)) {
                   return Colors.blue.withOpacity(0.12);
+                }
                 if (states.contains(MaterialState.focused) ||
-                    states.contains(MaterialState.pressed))
+                    states.contains(MaterialState.pressed)) {
                   return Colors.blue.withOpacity(0.36);
+                }
                 return null; // Defer to the widget's default.
               },
             ),
@@ -145,7 +151,8 @@ class LangWidget extends StatelessWidget {
           },
           child: Text(
             name,
-            style: TextStyle(fontSize: 24),
+            style: const TextStyle(fontSize: 24,
+            color: Color(0xFF1A1B41)),
           ),
         ),
       ),
