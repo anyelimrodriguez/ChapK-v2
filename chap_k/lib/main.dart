@@ -9,16 +9,14 @@ import 'package:chap_k/pages/Write.dart';
 import 'package:chap_k/pages/ViewStory.dart';
 import 'package:chap_k/pages/Language.dart';
 
+//Importing firebase configuration
+import 'firebase_options.dart';
+
 // Main is the point of execution ( have runApp() function in the main)
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      // ignore: prefer_const_constructors
-      options: FirebaseOptions(
-          apiKey: "AIzaSyApbb2ntUY0EwQB0Vf7J835OHVzWHd7nM4",
-          appId: "1:254458171974:web:adb506877ee4e57ab77047",
-          messagingSenderId: "254458171974",
-          projectId: "chapk-v2"));
+    options: DefaultFirebaseOptions.web);
   // Chap_k is the root widget, the mother/father of all the widgets of our app
   runApp(const ChapK());
 }

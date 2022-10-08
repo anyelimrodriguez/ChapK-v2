@@ -29,33 +29,33 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="../imgs/logo.png"/>
 
-  <title>chap_k</title>
+  <title> Chap K</title>
   <link rel="manifest" href="manifest.json">
-
+  
+  <!--This contains firebase configuration which will be hidden on git-->
+  <script src="./firebase-config.js"></script>
+  
   <script type="module">
+    
     // Import the functions you need from the SDKs you need
-   //  import { initializeApp } from "firebase/app";
-   //  import { getAnalytics } from "firebase/analytics";
-   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-   import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
+    //  import { initializeApp } from "firebase/app";
+    //  import { getAnalytics } from "firebase/analytics";
+
+    //This is the firebase config 
+    import { firebaseConfig } from './firebase-config.js'
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-analytics.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyApbb2ntUY0EwQB0Vf7J835OHVzWHd7nM4",
-    authDomain: "chapk-v2.firebaseapp.com",
-    projectId: "chapk-v2",
-    storageBucket: "chapk-v2.appspot.com",
-    messagingSenderId: "254458171974",
-    appId: "1:254458171974:web:adb506877ee4e57ab77047",
-    measurementId: "G-8E13RGBLJR"
-  };
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
 
     
   </script>
