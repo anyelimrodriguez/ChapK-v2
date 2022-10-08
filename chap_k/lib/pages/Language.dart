@@ -140,7 +140,7 @@ class LangWidget extends StatelessWidget {
             ),
           ),
           onPressed: () {
-            _user.doc('7VYOXEZk6wru9yHkGOdp').update({'Language': code});
+            _user.doc('FG9IEvTbuAfo5Ra5aX05').update({'Language': code});
             Navigator.pushNamed(context, '/Home');
           },
           child: Text(

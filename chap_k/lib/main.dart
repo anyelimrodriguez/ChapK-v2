@@ -13,13 +13,14 @@ import 'package:chap_k/pages/Language.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+      // ignore: prefer_const_constructors
       options: FirebaseOptions(
-          apiKey: "AIzaSyB9QVUVRFxJc3tYRMWf0bXAuwpty42ZdgQ",
-          appId: "1:77260781034:web:839306bb68dcf1f9e3ee93",
-          messagingSenderId: "77260781034",
-          projectId: "chap-k"));
+          apiKey: "AIzaSyApbb2ntUY0EwQB0Vf7J835OHVzWHd7nM4",
+          appId: "1:254458171974:web:adb506877ee4e57ab77047",
+          messagingSenderId: "254458171974",
+          projectId: "chapk-v2"));
   // Chap_k is the root widget, the mother/father of all the widgets of our app
-  runApp(Chap_K());
+  runApp(const ChapK());
 }
 
 // Future main() async {
@@ -28,8 +29,8 @@ void main() async {
 //   runApp(Chap_K());
 // }
 
-class Chap_K extends StatelessWidget {
-  const Chap_K({super.key});
+class ChapK extends StatelessWidget {
+  const ChapK({super.key});
 
   @override
   Widget build(BuildContext context) {
