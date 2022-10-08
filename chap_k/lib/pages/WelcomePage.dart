@@ -1,6 +1,9 @@
-// The Welcome Page I need to make it more responsive
 import 'package:flutter/material.dart';
-
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
 // Setting the Global Variables for the Window Height and Width
 double windowHeight = 0;
 double windowWidth = 0;
@@ -19,94 +22,140 @@ class _WelcomePageState extends State<WelcomePage> {
     windowHeight = MediaQuery.of(context).size.height;
     windowWidth = MediaQuery.of(context).size.width;
 
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+    bool screenIsWideEnough = screenWidth > 1000;
+
     return Scaffold(
-      backgroundColor: Color(0xFFC3B1E1),
-      body: Column(
-        // MAIN COLUMN of the whole Welcome Page -----------
-        children: <Widget>[
-          Row(
-              // FIRST ROW LOGO and LOGIN BUTTON
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Logo(),
-                LoginInButton(),
+      backgroundColor: const Color(0xFFF1FFE7),
+      body: LayoutBuilder(builder:
+          (BuildContext context, BoxConstraints viewportConstraints) {
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+                minWidth: viewportConstraints.maxWidth,
+                //minHeight: viewportConstraints.maxHeight,
+            ),
+          child: Flex(
+            direction: Axis.vertical,//screenIsWideEnough ? Axis.horizontal : Axis.vertical,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Flex(
+                // FIRST ROW LOGO and LOGIN BUTTON
+                direction:screenWidth>200?Axis.horizontal:Axis.vertical,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const <Widget>[
+                  Logo(),
+                  Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: LoginInButton(),
+                  ),
               ]),
-          SizedBox(height: windowHeight / 25, width: 100.0),
-          Row(
-            // We are Chap-K row-----------------------------------
-            children: [
-              SizedBox(width: windowWidth / 15, height: 50.0),
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 8,
-                child: FittedBox(
-                  child: Text(
-                    "Hi, we're CHAP-K",
-                    style: TextStyle(
-                      color: Colors.white,
+              //SizedBox(height: windowHeight / 25, width: 100.0),
+              Padding(
+                padding: EdgeInsets.fromLTRB(10, screenHeight / 12, 15, 30),
+                child: RichText(
+                  text: const TextSpan(
+                  text: "Hi, we're ",
+                  style: TextStyle(
+                      color: Color(0xFF1A1B41),
                       fontSize: 50.0,
                       fontWeight: FontWeight.bold,
-                    ),
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text:'CHAP-K.',
+                      style: TextStyle(
+                      color: Color(0xFFC3B1E1),
+                      fontSize: 50.0,
+                      fontWeight: FontWeight.bold,)
+                    )
+                  ]
+                  )),
+              ),
+               //),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(30, 0, 25, 40),
+                child: Text(
+                "Post and connect with people around the world",
+                style: TextStyle(
+                  color: Color(0xFF1A1B41),
+                  fontSize: 25.0,
+                  fontWeight: FontWeight.bold,
+                )),
+              ),
+              const Padding(
+                padding: EdgeInsets.only(bottom:10.0),
+                child: Text(
+                  "Write your chapter today, K?",
+                  style: TextStyle(
+                    color: Color(0xFF1A1B41),
+                    fontSize: 20.0,
+                    //fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: windowHeight / 30, width: 50.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment
-                .center, // Post and Connect With People from many places-----------------------------------
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 2,
-                height: MediaQuery.of(context).size.height / 14,
-                child: FittedBox(
-                  child: Text(
-                    "Post and Connect with People from many Places",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold,
+              //SizedBox(height: windowHeight / 30, width: 50.0),
+              /*Row(
+                mainAxisAlignment: MainAxisAlignment
+                    .center, // Post and Connect With People from many places-----------------------------------
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width / 2,
+                    height: MediaQuery.of(context).size.height / 14,
+                    child: const FittedBox(
+                      child: Text(
+                        "Post and Connect with People from many Places",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                ],
+              ),*/
+              //SizedBox(height: windowHeight / 30, width: 50.0),
+              /*Row(
+                mainAxisAlignment: MainAxisAlignment.center, // Write your chap today K-----------------------------------
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(bottom:10.0),
+                    child: Text(
+                      "Write your chapter today, K?",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20.0,
+                        //fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),*/
+             //SizedBox(height: windowHeight / 30, width: 50.0),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 15),
+                child: Flex(
+                  direction: screenIsWideEnough ? Axis.horizontal : Axis.vertical,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                  Image.asset(
+                    'imgs/welcomepage.png',
+                    //fit: BoxFit.contain,
+                    height: screenHeight/2,//windowHeight / 3,
+                    width: screenWidth/2,//windowWidth / 2,
+                  ),
+                  const GetStartedButton(),
+                ]),
               ),
             ],
           ),
-          SizedBox(height: windowHeight / 30, width: 50.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment
-                .center, // Write your chap today K-----------------------------------
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width / 5,
-                height: MediaQuery.of(context).size.height / 15,
-                child: FittedBox(
-                  child: Text(
-                    "Write your chapter today, K ?",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: windowHeight / 30, width: 50.0),
-          Row(children: <Widget>[
-            Image.asset(
-              'imgs/welcomepage.png',
-              fit: BoxFit.contain,
-              height: windowHeight / 3,
-              width: windowWidth / 2,
-            ),
-            GetStartedButton(),
-          ]),
-        ],
-      ),
-    );
+        ),
+      );
+    }));  
   }
 }
 
@@ -120,7 +169,7 @@ class Logo extends StatelessWidget {
       //color: Colors.green,
       padding: EdgeInsets.fromLTRB(windowWidth / 22, windowHeight / 22, 0, 0),
       child: Card(
-        color: Color(0xFFFFBA01),
+        color: const Color(0xFF1A1B41),
         child: Image.asset(
           'imgs/logo.png',
           fit: BoxFit.contain,
@@ -139,38 +188,23 @@ class LoginInButton extends StatelessWidget {
   Widget build(BuildContext context) {
     //print(windowHeight);
     //print(windowWidth);
-    return Container(
-      //color: Colors.green,
-      padding: EdgeInsets.fromLTRB(0, windowHeight / 22, windowWidth / 22, 0),
-      child: SizedBox(
-        height: windowHeight / 10,
-        width: windowWidth / 10,
-        child: TextButton(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-                width: MediaQuery.of(context).size.width / 20,
-                height: MediaQuery.of(context).size.height / 20,
-                child: FittedBox(
-                  child: Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          onPressed: () {
-            Navigator.pushNamed(context, '/Login');
-          },
-          style: TextButton.styleFrom(
-            elevation: 0,
-            backgroundColor: Color(0xFFFFBA01), //0xFFCCCCCC
+    return SizedBox(
+      height: 50,
+      width: 100,
+      child: TextButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/Login');
+        },
+        style: TextButton.styleFrom(
+          elevation: 0,
+          backgroundColor: const Color(0xFF1A1B41), //0xFFCCCCCC
+        ),
+        child: const Text(
+          "Login",
+          style: TextStyle(
+            color: Color(0xFFF1FFE7),
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
@@ -187,35 +221,29 @@ class GetStartedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: windowHeight / 5,
-      width: windowWidth / 3,
-      child: ElevatedButton(
+      height: 50,
+      width: 300,
+      child: TextButton(
         onPressed: () {
           Navigator.pushNamed(context, '/SignUp');
         },
         style: ButtonStyle(
-            elevation: MaterialStateProperty.all<double>(0),
-            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //elevation: MaterialStateProperty.all<double>(0),
+            backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF1A1B41)),
+            /*shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(25.0),
               ),
-            )),
-        child: Container(
-          width: MediaQuery.of(context).size.width / 10,
-          height: MediaQuery.of(context).size.height / 10,
-          child: FittedBox(
-            child: Text(
-              "Get Started",
-              style: TextStyle(
-                color: Color(0xFFC3B1E1),
-                fontSize: 25,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            )*/),
+        child: const Text(
+          "Get Started",
+          style: TextStyle(
+            color: Color(0xFFF1FFE7),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
           ),
         ),
-      ),
+      )
     );
   }
 }
