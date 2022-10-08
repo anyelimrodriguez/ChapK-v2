@@ -2,6 +2,12 @@ import 'package:chap_k/pages/auth.dart';
 import "package:flutter/material.dart";
 import 'package:firebase_auth/firebase_auth.dart';
 
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
+
 class SignUp extends StatefulWidget {
   // const SignUp({super.key});
   final toggleView;
@@ -38,7 +44,7 @@ class _SignUpState extends State<SignUp> {
     }
 
     return Scaffold(
-        backgroundColor: const Color(0xFFC3B1E1),
+        backgroundColor: const Color(0xFFF1FFE7),
         body: LayoutBuilder(builder:
             (BuildContext context, BoxConstraints viewportConstraints) {
           return SingleChildScrollView(
@@ -60,7 +66,7 @@ class _SignUpState extends State<SignUp> {
                       children: [
                         const Text('CHAP-K',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFF1A1B41),
                               fontSize: 48,
                               fontWeight: FontWeight.bold,
                             )),
@@ -73,7 +79,7 @@ class _SignUpState extends State<SignUp> {
                         const Text(
                             'Connect with stories from around the world. ',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Color(0xFF1A1B41),
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
                             )),
@@ -91,7 +97,7 @@ class _SignUpState extends State<SignUp> {
                               screenHeight / 20), //50 20
                           child: Text('Create a new account.',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Color(0xFF1A1B41),
                                 //fontFamily: 'Inter',
                                 fontSize:
                                     screenWidth > 900 && screenWidth < 1100
@@ -113,14 +119,14 @@ class _SignUpState extends State<SignUp> {
                             children: [
                               const Text('Already a member?',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Color(0xFF1A1B41),
                                     fontSize: 24,
                                   )),
                               TextButton(
                                 onPressed: showLogInPage,
                                 child: const Text('Sign In',
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Color(0xFF1A1B41),
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
                                     )),
@@ -304,7 +310,7 @@ class _SignUpState extends State<SignUp> {
                                             return states.contains(
                                                     MaterialState.disabled)
                                                 ? null
-                                                : const Color(0xFFE1B1B1);
+                                                : const Color(0xFFC3B1E1);
                                           }),
                                         ),
                                         child: const Text('Create Account',
