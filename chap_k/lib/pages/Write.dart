@@ -27,10 +27,13 @@ class _WriteState extends State<Write> {
     WidthOfScreen=MediaQuery.of(context).size.width; 
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF1FFE7),
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text(
           "Write",
+          style: TextStyle(
+            color: Color(0xFFF1FFE7),
+          ),
         ),
         backgroundColor: const Color(0xFF1A1B41),
         centerTitle: true,
@@ -57,7 +60,7 @@ class _WriteState extends State<Write> {
                     ),
                     filled: true,
                     //hoverColor: Colors.green,
-                    fillColor: Color(0xFFC3B1E1),
+                    fillColor: Color(0xFFEBEBEB),
                     
                     ),
                   ),
@@ -111,7 +114,7 @@ class PostButton extends StatelessWidget{
           Text(
             "Post",
             style: TextStyle(
-              color: Colors.white,
+              color: Color(0xFFF1FFE7),
               fontSize: 20.0,
               fontWeight: FontWeight.bold,
             ),

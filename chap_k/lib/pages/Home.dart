@@ -301,18 +301,18 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
                       return Text(
                         snapshot.data.toString(),
                         style: const TextStyle(
-                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
+                            color: Color(0xFFF1FFE7), fontSize: 20, letterSpacing: 2),
                       );
                     } else {
                       return const Text(
                         '',
                         style: TextStyle(
-                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                            color: Color(0xFFF1FFE7), fontSize: 30, letterSpacing: 2),
                       );
                     }
                   }),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: const Color(0xFFC3B1E1),
                 minimumSize: const Size(50, 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -369,18 +369,18 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
                       return Text(
                         snapshot.data.toString(),
                         style: const TextStyle(
-                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
+                            color: Color(0xFFF1FFE7), fontSize: 20, letterSpacing: 2),
                       );
                     } else {
                       return const Text(
                         '',
                         style: TextStyle(
-                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
+                            color: Color(0xFFF1FFE7), fontSize: 20, letterSpacing: 2),
                       );
                     }
                   }),
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.grey.shade200,
+                backgroundColor: const Color(0xFFC3B1E1),
                 minimumSize: const Size(50, 20),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
