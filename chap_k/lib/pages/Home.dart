@@ -4,6 +4,12 @@ import 'dart:math';
 import 'package:chap_k/pages/auth.dart';
 import 'package:translator/translator.dart';
 
+/*
+  Color palette: Honeydew -> Color(0xFFF1FFE7)
+  Color palette: Wisteria(the purple) -> Color(0xFFC3B1E1)
+  Color palette: Space Cadet (dark) -> Color(0xFF1A1B41)
+*/
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -54,7 +60,7 @@ class _HomeState extends State<Home> {
     rm - 1;
 
     return Scaffold(
-        backgroundColor: Colors.grey.shade300,
+        backgroundColor: Color(0xFFF1FFE7),//Colors.grey.shade300,
         body: StreamBuilder(
             stream: _posts.snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
@@ -66,9 +72,10 @@ class _HomeState extends State<Home> {
                         minHeight: 70, //minimum height
                         maxHeight: wH,
                       ),
-                      color: const Color(0xffC3B1E1),
+                      color: const Color(0xFF1A1B41),
                       height: wH / 10,
-                      child: Row(
+                      child: Flex(
+                        direction: Axis.horizontal,//wH>550?Axis.horizontal:Axis.vertical,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
                           const HomeLanguageButton(),
@@ -126,7 +133,7 @@ class _HomeState extends State<Home> {
             onPressed: () {
               Navigator.pushNamed(context, '/Write');
             },
-            backgroundColor: Colors.purple,
+            backgroundColor: const Color(0xFF1A1B41),
             splashColor: Colors.red,
             hoverColor: const Color(0xff35139d),
             shape: const RoundedRectangleBorder(
@@ -294,7 +301,7 @@ class _HomeLanguageButtonState extends State<HomeLanguageButton> {
                       return Text(
                         snapshot.data.toString(),
                         style: const TextStyle(
-                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
                       );
                     } else {
                       return const Text(
@@ -362,13 +369,13 @@ class _HomeSignoutButtonState extends State<HomeSignoutButton> {
                       return Text(
                         snapshot.data.toString(),
                         style: const TextStyle(
-                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
                       );
                     } else {
                       return const Text(
                         '',
                         style: TextStyle(
-                            color: Colors.blue, fontSize: 30, letterSpacing: 2),
+                            color: Colors.blue, fontSize: 20, letterSpacing: 2),
                       );
                     }
                   }),
